@@ -1,0 +1,89 @@
+
+
+<div class="mat-elevation-z8">
+  <h1>Liste des équipements</h1>
+
+  <mat-card>
+  <table mat-table [dataSource]="dataSource">
+    <!-- colonne Type de matériel -->
+    <!--
+    <ng-container matColumnDef="typeMat">
+      <th mat-header-cell *matHeaderCellDef>Type </th>
+      <td mat-cell *matCellDef="let materiel">{{materiel.categorie.nom}} </td>
+    </ng-container> -->
+
+    <!-- colonne Type de matériel icone -->
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef>Type </th>
+      <td mat-cell *matCellDef="let materiel">
+
+       <!-- <div [ngSwitch]="materiel.categorie.nom" class="VueCategorie">
+          <div [ngSwitchCase]="'telephone'">
+            <img class='typeMateriel' src="../../../assets/img/iconmonstr-smartphone-4-48.png" alt="smartphone">
+          </div>
+          <div [ngSwitchCase]="'tablette'">
+            <img class="typeMateriel" src="../../../assets/img/iconmonstr-tablet-6-48.png" alt="tablette">
+          </div>
+          <div [ngSwitchCase]="'PC portable'">
+            <img class="typeMateriel" src="../../../assets/img/iconmonstr-laptop-4-48.png" alt="PC portable">
+          </div>
+          <div [ngSwitch]="'routeur'">
+            <img class="typeMateriel" src="../../../assets/img/routeur.jpg" alt="routeur">
+          </div>
+        </div>
+        -->
+
+        <div *ngIf="materiel.categorie.nom === 'telephone'">
+          <img class='typeMateriel' src="../../../assets/img/iconmonstr-smartphone-4-48.png" alt="smartphone">
+        </div>
+        <div *ngIf="materiel.categorie.nom === 'tablette'">
+          <img class="typeMateriel" src="../../../assets/img/iconmonstr-tablet-6-48.png" alt="tablette">
+        </div>
+        <div *ngIf="materiel.categorie.nom === 'PC portable'">
+          <img class="typeMateriel" src="../../../assets/img/iconmonstr-laptop-4-48.png" alt="PC portable">
+        </div>
+        <div *ngIf="materiel.categorie.nom === 'routeur'">
+          <img class="typeMateriel" src="../../../assets/img/routeur.jpg" alt="routeur">
+        </div>
+
+
+    </ng-container>
+
+    <!-- colonne Marque -->
+    <ng-container matColumnDef="marque">
+      <th mat-header-cell *matHeaderCellDef>Marque </th>
+      <td mat-cell *matCellDef="let materiel">{{materiel.marque}}</td>
+    </ng-container>
+
+
+    <!-- colonne Modèle -->
+    <ng-container matColumnDef="modele">
+      <th mat-header-cell *matHeaderCellDef> Modèle </th>
+      <td mat-cell *matCellDef="let materiel"> {{materiel.modele}} </td>
+    </ng-container>
+
+
+    <!-- colonne version de système d'exploitation -->
+    <ng-container matColumnDef="os">
+      <th mat-header-cell *matHeaderCellDef> OS </th>
+      <td mat-cell *matCellDef="let materiel"> {{materiel.os}} </td>
+    </ng-container>
+
+    <!-- colonne statut de l'appareil -->
+    <ng-container matColumnDef="statut">
+      <th mat-header-cell *matHeaderCellDef> Statut </th>
+      <td mat-cell *matCellDef="let materiel"> <a class="button" href="#"></a>  </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+  </table>
+
+
+
+  </mat-card>
+
+</div>
+

@@ -1,0 +1,54 @@
+<div class="mat-elevation-z8">
+  <h1>Liste de vos anciens prêts</h1>
+  <mat-card>
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- colonne Type de matériel -->
+    <!--
+    <ng-container matColumnDef="typeMat">
+      <th mat-header-cell *matHeaderCellDef>Type </th>
+      <td mat-cell *matCellDef="let materiel">{{materiel.categorie.nom}} </td>
+    </ng-container> -->
+
+    <!-- colonne Type de matériel icone -->
+    <!--
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Type </th>
+      <td mat-cell *matCellDef="let materiel"><img class='typeMateriel' src="../../../assets/img/iconmonstr-smartphone-4-48.png" alt=""> </td>
+    </ng-container>
+-->
+    <!-- colonne id du pret -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>N° du prêt </th>
+      <td mat-cell *matCellDef="let pret">{{pret.id}}</td>
+
+    </ng-container>
+
+
+    <!-- colonne Modèle -->
+    <ng-container matColumnDef="date de début">
+      <th mat-header-cell *matHeaderCellDef> Date de début </th>
+      <td mat-cell *matCellDef="let pret"> {{pret.debut}} </td>
+    </ng-container>
+
+
+    <!-- colonne version de système d'exploitation -->
+    <ng-container matColumnDef="date de fin">
+      <th mat-header-cell *matHeaderCellDef> Date de fin </th>
+      <td mat-cell *matCellDef="let pret"> {{pret.finPrevue}} </td>
+    </ng-container>
+
+    <!-- colonne statut de l'appareil -->
+    <ng-container matColumnDef="date restitution">
+      <th mat-header-cell *matHeaderCellDef> Date de restitution </th>
+      <td mat-cell *matCellDef="let pret">{{pret.finReelle}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+  </mat-card>
+ <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+
+</div>

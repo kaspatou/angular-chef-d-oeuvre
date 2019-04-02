@@ -1,0 +1,48 @@
+
+ <ng-container class="formulaireRecherche">
+<mat-card>
+<form class="example-form">
+  <span>Choisissez une catégorie de matériel :</span>
+  <mat-form-field class="example-full-width">
+    <input type="text" placeholder="choisir une catégorie" aria-label="Number" matInput [formControl]="choixCategorie" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of optionsCategorie" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+</mat-card>
+
+
+<mat-card>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="dateDebutPret" placeholder="Choisissez une date">
+    <mat-datepicker-toggle matSuffix [for]="dateDebutPret"></mat-datepicker-toggle>
+    <mat-datepicker #dateDebutPret></mat-datepicker>
+
+  </mat-form-field>
+</mat-card>
+
+<mat-card>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="test" placeholder="Choisissez une date">
+    <mat-datepicker-toggle matSuffix [for]="test"></mat-datepicker-toggle>
+    <mat-datepicker #test></mat-datepicker>
+  </mat-form-field>
+</mat-card>
+
+<mat-card>
+<a mat-raised-button color="primary" routerLink="/listing">Validez</a>
+</mat-card>
+
+</ng-container>
+
+
+
+
+
+
+

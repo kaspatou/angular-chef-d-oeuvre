@@ -1,0 +1,75 @@
+body {
+  margin: 0px;
+
+}
+
+
+.companyName{
+  font-size: 150%;
+}
+
+.mat-toolbar{
+  height: 7vh;
+  background-color: #0C4DA2;
+  color: white;
+
+}
+
+div {
+  overflow: inherit;
+}
+
+.mat-sidenav-container{
+  background-color: lightskyblue;
+  min-height: 83vh !important;
+  display: inline-block;
+  vertical-align: middle;
+  width: 50%;
+  height: 50%;
+ /* background-color: red; */
+
+
+}
+
+a{
+  text-decoration: none;
+  font-size: 110%;
+  white-space: normal;
+}
+
+button{
+  font-size: 110%;
+  min-width: min-content;
+}
+
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-sidenav-content{
+  font-size: 100%;
+ /* text-align: center; */
+  background: lightskyblue;
+ /* left: 50%;
+  top: 50%; */
+  /*margin-top: -50%;
+  margin-left: -50%;
+  position: absolute; */
+
+
+
+
+}
+
+/*
+.footer {
+  height: 10vh;
+  max-width: 100em;
+  background: lightskyblue;
+}
+
+*/

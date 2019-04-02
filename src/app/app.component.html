@@ -1,0 +1,62 @@
+<!--The content below is only a placeholder and can be replaced.-->
+
+<div>
+  <mat-toolbar>
+    <div fxShow="true" fxHide.gt-sm="true">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+
+    <a mat-button class="companyName" routerLink="/">
+      <span>GestionMat'</span>
+    </a>
+    <span class="example-spacer"></span>
+    <div fxShow="true" fxHide.lt-md="true">
+      <a mat-button routerLink="/historique">Historique des prêts</a>
+      <a mat-button routerLink="/recherche">Demande de prêt</a>
+      <a mat-button routerLink="/listing">Gestion du Parc</a>
+      <a mat-button routerLink="/historique">Gestion des Prêts</a>
+      <a mat-button routerLink="/recherche">Recherche</a>
+    </div>
+
+  </mat-toolbar>
+  <mat-sidenav-container fxFlexFill class="example-container">
+
+    <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over"  opened="false" fxHide.gt-sm="true">
+      <div fxLayout="column">
+        <a mat-button routerLink="/historique">Historique des prêts</a>
+        <a mat-button routerLink="/recherche">Demande de prêt</a>
+        <a mat-button routerLink="/listing">gestion du parc</a>
+        <a mat-button routerLink="/historique">Gestion des prêts</a>
+        <a mat-button routerLink="/recherche">Recherche</a>
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlexFill>
+      <router-outlet></router-outlet>
+
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+<app-footer></app-footer>
+
+
+
+
+<!--
+<div class="page">
+<app-header></app-header>
+<div class="corps">
+
+  <router-outlet></router-outlet>
+
+</div>
+
+<div class="footer">
+<app-footer></app-footer>
+</div>
+</div>
+
+-->
+
