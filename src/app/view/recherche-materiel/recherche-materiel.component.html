@@ -1,4 +1,5 @@
-
+<!--premier formulaire -->
+<!--
  <ng-container class="formulaireRecherche">
 <mat-card>
 <form class="example-form">
@@ -39,10 +40,43 @@
 </mat-card>
 
 </ng-container>
+-->
 
-
-
-
-
+<!-- Deuxième formulaire -->
+<h1>Demande de prêt</h1>
+<mat-card  class="mat-elevation-z8">
+  <p>
+<mat-form-field>
+   <h4>Choisissez une catégorie de matériel :</h4>
+   <mat-label></mat-label>
+  <mat-select [(value)]="selected">
+    <mat-option>None</mat-option>
+    <mat-option value="Téléphone">Téléphone</mat-option>
+    <mat-option value="Tablette">Tablette</mat-option>
+    <mat-option value="PC portable">PC portable</mat-option>
+    <mat-option value="Routeur">Routeur</mat-option>
+  </mat-select>
+</mat-form-field>
+  </p>
+<p>
+<mat-form-field>
+ <!-- <h4>Choisissez la date de début du prêt :</h4> -->
+  <input matInput [matDatepicker]="dateDebutPret" placeholder="Date début de prêt" disabled>
+  <mat-datepicker-toggle matSuffix [for]="dateDebutPret"></mat-datepicker-toggle>
+  <mat-datepicker #dateDebutPret disabled="false"></mat-datepicker>
+</mat-form-field>
+</p>
+  <p>
+<mat-form-field>
+ <!-- <h4>Choisissez la date de fin du prêt :</h4> -->
+  <input matInput [matDatepicker]="dateFinPret" placeholder="Date fin de prêt" disabled>
+  <mat-datepicker-toggle matSuffix [for]="dateFinPret"></mat-datepicker-toggle>
+  <mat-datepicker #dateFinPret disabled="false"></mat-datepicker>
+</mat-form-field>
+  </p>
+  <p>
+    <a mat-raised-button color="primary" routerLink="/listing">Validez</a>
+  </p>
+</mat-card>
 
 

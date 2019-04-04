@@ -4,6 +4,7 @@ import {AuthentificationComponent} from './view/authentification/authentificatio
 import {RechercheMaterielComponent} from './view/recherche-materiel/recherche-materiel.component';
 import {HistoriqueComponent} from './view/historique/historique.component';
 import {ListeMaterielComponent} from './view/liste-materiel/liste-materiel.component';
+import {ReservationComponent} from './view/reservation/reservation.component';
 
 
 const routes: Routes = [
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: 'accueil', component: RechercheMaterielComponent},
   { path: 'historique', component: HistoriqueComponent},
   { path: 'listing', component: ListeMaterielComponent},
-  { path: 'recherche', component: RechercheMaterielComponent}
+  { path: 'recherche', component: RechercheMaterielComponent},
+  { path: 'reservation/:id', component: ReservationComponent}
 ];
 
 @NgModule({

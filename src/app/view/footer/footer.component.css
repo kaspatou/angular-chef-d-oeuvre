@@ -18,20 +18,24 @@
 .laposte
 {
 
-  height: 15%;
-  min-height: 10%;
+  max-width: 30%;
+  height: auto;
 }
 
 */
+
 mat-card {
- /* width: 100%;
+ /* width: 100%; */
   display: flex;
+  flex-wrap: wrap-reverse;
   justify-content: space-around;
-  margin: 0px; */
-  background: lightskyblue;
+ /* margin: 0px; */
+  /*background: white;*/
+  background-color: #F0F1F3;
 /*  background-color: #0C4DA2; */
+
 }
 
-#footer {
-  max-width: 100em;
-}
+
+
+

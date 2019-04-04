@@ -9,7 +9,7 @@ body {
 }
 
 .mat-toolbar{
-  height: 7vh;
+  height: 10vh;
   background-color: #0C4DA2;
   color: white;
 
@@ -20,12 +20,13 @@ div {
 }
 
 .mat-sidenav-container{
-  background-color: lightskyblue;
-  min-height: 83vh !important;
-  display: inline-block;
+  background-color: #F0F1F3;
+  min-height: 80vh !important;
+ /* display: inline-block;
   vertical-align: middle;
   width: 50%;
-  height: 50%;
+  height: 50%; */
+  background-color: #F0F1F3;
  /* background-color: red; */
 
 
@@ -51,25 +52,19 @@ button{
 }
 
 .mat-sidenav-content{
-  font-size: 100%;
+ /* font-size: 100%; */
  /* text-align: center; */
-  background: lightskyblue;
+ /* background: white; */
+  background-color: #F0F1F3;
+
  /* left: 50%;
   top: 50%; */
   /*margin-top: -50%;
   margin-left: -50%;
   position: absolute; */
-
-
-
-
 }
 
-/*
-.footer {
-  height: 10vh;
-  max-width: 100em;
-  background: lightskyblue;
+.app-footer {
+  height: 9vh;
 }
 
-*/

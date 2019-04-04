@@ -9,7 +9,7 @@ import {HttpClient} from '@angular/common/http';
 
 export class MaterielService {
 
-  private availableMateriels: Materiel[] = [];
+  public availableMateriels: Materiel[] = [];
   availableMateriels$: BehaviorSubject<Materiel[]> = new BehaviorSubject(this.availableMateriels);
 
   constructor(private httpClient: HttpClient) {
@@ -25,5 +25,9 @@ export class MaterielService {
       this.availableMateriels = materielList;
       this.availableMateriels$.next(this.availableMateriels);
     });
+  }
+
+  public findMateriel(materielId: number): Observable<Materiel> {
+    return this.httpClient.get<Materiel>('http://localhost:8080/materiel/getbyid/:id');
   }
 }

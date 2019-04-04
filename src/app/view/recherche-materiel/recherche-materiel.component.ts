@@ -12,7 +12,7 @@ export class RechercheMaterielComponent implements OnInit {
 
   choixCategorie = new FormControl();
   optionsCategorie: string[] = ['Téléphone', 'Tablette', 'Ordinateur Portable', 'Routeur'];
-
+  selected = 'option2';
 
     ngOnInit() {
   }

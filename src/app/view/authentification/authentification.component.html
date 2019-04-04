@@ -1,4 +1,4 @@
-
+<!--
   <div id="conteneur">
     <div class="paveIdentification">
       <h1>Veuillez vous identifier</h1>
@@ -13,12 +13,26 @@
             <input matInput class="saisiemdp">
           </mat-form-field>
 
-          <!-- <button mat-button class="validation">Valider</button> -->
+           <button mat-button class="validation">Valider</button>
 
         </form>
       </mat-card>
 
     </div>
   </div>
+-->
+
+  <mat-card class="mat-elevation-z8">
+    <div class="example-container">
+      <mat-form-field>
+        <input matInput placeholder="Identifiant" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="mot de passe" [type]='password' required>
+      </mat-form-field>
 
 
+    </div>
+    <button mat-raised-button class='signInButton' (click)='signIn()'>se connecter</button>
+  </mat-card>

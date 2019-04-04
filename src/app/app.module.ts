@@ -8,7 +8,7 @@ import {
   MatToolbarModule,
   MatMenuModule,
   MatTableModule,
-  MatInputModule, MatPaginatorModule, MatSidenavModule, MatNativeDateModule
+  MatInputModule, MatPaginatorModule, MatSidenavModule, MatNativeDateModule, MatSelectModule
 } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
@@ -26,6 +26,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { ReservationComponent } from './view/reservation/reservation.component';
 
 
 
@@ -38,7 +39,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     AuthentificationComponent,
     RechercheMaterielComponent,
     HistoriqueComponent,
-    ListeMaterielComponent
+    ListeMaterielComponent,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     FormsModule,
     ReactiveFormsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
