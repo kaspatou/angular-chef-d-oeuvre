@@ -8,9 +8,9 @@ import {
   MatToolbarModule,
   MatMenuModule,
   MatTableModule,
-  MatInputModule, MatPaginatorModule, MatSidenavModule, MatNativeDateModule, MatSelectModule
+  MatInputModule, MatPaginatorModule, MatSidenavModule, MatNativeDateModule, MatSelectModule, MatCheckboxModule
 } from '@angular/material';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatFormFieldModule} from '@angular/material/form-field';
 
@@ -27,6 +27,16 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ReservationComponent } from './view/reservation/reservation.component';
+import {FullCalendarModule} from 'primeng/fullcalendar';
+import {CalendarModule} from 'primeng/primeng';
+import {JwtInterceptor} from './http-interceptor/jwt.interceptor';
+import {ReaderGuard} from './guards/reader.guard';
+import {CreatorGuard} from './guards/creator.guard';
+import {AdminGuard} from './guards/admin.guard';
+import { GestionParcComponent } from './view/gestion-parc/gestion-parc.component';
+import { GestionPretComponent } from './view/gestion-pret/gestion-pret.component';
+import {TableModule} from 'primeng/table';
+
 
 
 
@@ -40,7 +50,10 @@ import { ReservationComponent } from './view/reservation/reservation.component';
     RechercheMaterielComponent,
     HistoriqueComponent,
     ListeMaterielComponent,
-    ReservationComponent
+    ReservationComponent,
+    GestionParcComponent,
+    GestionPretComponent
+
   ],
   imports: [
     BrowserModule,
@@ -64,9 +77,18 @@ import { ReservationComponent } from './view/reservation/reservation.component';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
+    FullCalendarModule,
+    CalendarModule,
+    MatCheckboxModule,
+    TableModule
   ],
-  providers: [],
+  providers: [ReaderGuard, CreatorGuard, AdminGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

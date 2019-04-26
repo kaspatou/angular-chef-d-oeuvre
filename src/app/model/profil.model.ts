@@ -1,5 +1,5 @@
-export class Role {
-  public id : number;
+export class Profil {
+  public id: number;
   public fonction: string;
 
   constructor(id: number, fonction: string) {

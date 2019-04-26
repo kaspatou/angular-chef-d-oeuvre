@@ -1,5 +1,18 @@
 import {Categorie} from './categorie.model';
 
+export interface Materiel {
+  id: number;
+  imei: number;
+  marque: string;
+  modele: string;
+  os: string;
+  serie: string;
+  verOs: string;
+  categorie: Categorie[];
+
+
+}
+
 export class Materiel {
   public id: number;
   public imei: number;

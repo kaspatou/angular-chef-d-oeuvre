@@ -21,18 +21,55 @@
     </div>
   </div>
 -->
-
+<!--
   <mat-card class="mat-elevation-z8">
     <div class="example-container">
       <mat-form-field>
-        <input matInput placeholder="Identifiant" required>
+        <input matInput type="text" placeholder="username" name="username" required>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput placeholder="mot de passe" [type]='password' required>
+        <input matInput type="password" name="password" placeholder="mot de passe" required>
       </mat-form-field>
 
 
     </div>
-    <button mat-raised-button class='signInButton' (click)='signIn()'>se connecter</button>
+    <button mat-raised-button class='signInButton' value="Login">se connecter</button>
   </mat-card>
+
+  -->
+
+<form [formGroup]="loginForm" novalidate (ngSubmit)="onSubmit()">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="Username" formControlName="username">
+            <mat-error *ngIf="loginForm.controls['username'].hasError('required')">
+              Le username est <strong>obligatoire</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <input matInput type="password" placeholder="Mot de passe" formControlName="password">
+            <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+              Le mot de passe est <strong>obligatoire</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit">Se connecter</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+
+
