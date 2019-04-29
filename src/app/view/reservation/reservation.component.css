@@ -1,0 +1,31 @@
+ mat-card {
+   width: 20%;
+  min-width: 20em;
+  /* min-height: 20em; */
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5em;
+  transform: translateY(-10%);
+
+
+}
+strong {
+  font-weight: bold;
+
+}
+
+
+h1 {
+  text-align: center;
+}
+
+#calendrier {
+   display: flex;
+  justify-content: center;
+
+}
+
+.detailMateriel {
+  width: 60%;
+}
+

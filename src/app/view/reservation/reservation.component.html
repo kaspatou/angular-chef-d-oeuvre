@@ -1,0 +1,38 @@
+<h1>Détail d'un équipement</h1>
+
+<mat-card class="mat-elevation-z8">
+   <mat-card-content>
+    <p>Categorie : <strong>{{ materielSelected.categorie.nom }}</strong></p>
+    <p>Marque : <strong>{{materielSelected.marque}}</strong> </p>
+    <p>Modèle : <strong>{{materielSelected.modele}}</strong></p>
+    <p>Système d'exploitation : <strong>{{materielSelected.os}}</strong></p>
+    <p>Version système d'exploitation : <strong>{{materielSelected.verOs}}</strong></p>
+  </mat-card-content>
+
+
+</mat-card>
+<h1>Calendrier des réservations</h1>
+<mat-card class="mat-elevation-z8">
+ <p-fullCalendar  [options]="options" class="fullcalendrier"></p-fullCalendar>
+</mat-card>
+
+<!--
+<h1>Calendrier des réservations</h1>
+<div id="calendrier">
+
+    <p-calendar [(ngModel)]="date11" tabindex="0" [disabledDates]="invalidDates" [disabledDays]="[0,6]"class="mat-elevation-z8" dateFormat="dd.mm.yy" selectionMode="multiple" [locale]="fr" [readonlyInput]="true" [inline]="true" showButtonBar="true">
+      <p-header>Calendrier de réservation</p-header>
+      <ng-template pTemplate="date" let-date>
+        <span [ngStyle]="{backgroundColor: (date.day < 21 && date.day > 10) ? '#81C784' : 'inherit'}" style="border-radius:50%;padding: .25em;width: 1.75em; height:1.75em; display:block;">{{date.day}}</span>
+      </ng-template>
+      <p-footer>cliquez sur le premier et le dernier jour de prêt</p-footer>
+    </p-calendar >
+
+
+
+</div>
+-->
+
+<mat-card>
+<!--  <multiple-date-picker></multiple-date-picker> -->
+</mat-card>
