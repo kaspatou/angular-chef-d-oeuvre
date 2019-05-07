@@ -24,6 +24,16 @@ export class PretService {
     return this.httpClient.put<Pret>('http://localhost:8080/prets/modify', pret);
   }
 
+  public deletePret(pretId: number) {
+    this.httpClient.delete('http://localhost:8080/prets/delete/' + pretId).subscribe(deletedPret => {
+      this.publishPrets();
+    });
+  }
+
+  public createPret(pret) {
+    return this.httpClient.post<Pret>('http://localhost:8080/prets/add', pret);
+  }
+
   public getListePrets(){
     console.log(this.httpClient.get<any>('http://localhost:8080/prets/getall')
     );

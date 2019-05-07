@@ -7,6 +7,8 @@ import {MaterielService} from '../../service/materiel.service';
 import {PretService} from '../../service/pret.service';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Utilisateur} from '../../model/utilisateur.model';
+import {Profil} from '../../model/profil.model';
+import {UtilisateurService} from '../../service/utilisateur.service';
 
 
 export interface Menu {
@@ -36,11 +38,17 @@ export class GestionPretComponent implements OnInit {
 
   cols: any[];
 
+  enCreation: boolean;
 
-  constructor(private pretService: PretService) {
+  listeUtilisateur: Utilisateur[];
+
+
+  constructor(private pretService: PretService, private utilisateurService: UtilisateurService) {
   }
 
   ngOnInit() {
+    this.utilisateurService.publishUtilisateurs();
+    this.utilisateurService.availableUtilisateurs$.subscribe(utilisateur => this.listeUtilisateur = utilisateur);
     this.pretService.getListePrets().then(prets => {
       this.prets = prets;
       this.prets.forEach(pret => pret.utilisateurIdentifiant = pret.utilisateur.identifiant)
@@ -59,30 +67,38 @@ export class GestionPretComponent implements OnInit {
   }
 
   showDialogToAdd() {
+    this.enCreation = true;
     this.newPret = true;
     this.pret = new PrimePret();
     this.displayDialog = true;
   }
 
   save() {
+    const identifiantUtilisateur = document.getElementById('utilisateur').value;
     const pretAEnvoyer = {
       id: this.pret.id,
-      utilisateur: this.pret.utilisateur,
+      debut: new Date(this.pret.debut).toJSON(),
       finReelle: new Date(this.pret.finReelle).toJSON(),
       finPrevue: new Date(this.pret.finPrevue).toJSON(),
       materiel: this.pret.materiel,
-      debut: new Date(this.pret.debut).toJSON()
+      utilisateur: this.listeUtilisateur.find(utilisateur => utilisateur.identifiant === identifiantUtilisateur)
     }
+
     let prets = [...this.prets];
-    if (this.newPret)
-      prets.push(this.pret);
+    if (this.newPret) {
+      this.pretService.createPret(pretAEnvoyer).subscribe(
+        pret => {
+          console.log('enregistré', pret);
+        }
+        )
+      prets.push(this.pret); }
     else {
       this.pretService.updatePret(pretAEnvoyer).subscribe(
         pret => {
-          console.log('enoyé')
+          console.log('enoyé');
         }
       )
-      prets[this.prets.indexOf(this.selectedPret)] = this.pret
+      prets[this.prets.indexOf(this.selectedPret)] = this.pret;
 
     }
 
@@ -92,7 +108,8 @@ export class GestionPretComponent implements OnInit {
     this.displayDialog = false;
   }
 
-  delete() {
+  delete(pretId: number = this.pret.id) {
+    this.pretService.deletePret(pretId);
     let index = this.prets.indexOf(this.selectedPret);
     this.prets = this.prets.filter((val, i) => i != index);
     this.pret = null;
@@ -100,6 +117,7 @@ export class GestionPretComponent implements OnInit {
   }
 
   onRowSelect(event) {
+    this.enCreation = false;
     this.newPret = false;
     this.pret = this.clonePret(event.data);
     this.displayDialog = true;
@@ -115,7 +133,9 @@ export class GestionPretComponent implements OnInit {
 }
 
 class PrimePret implements Pret {
-  constructor(public id?, public debut?, public finPrevue?, public finReelle?, public materiel?, public utilisateur?) {}
+  constructor(public id?, public debut?, public finPrevue?, public finReelle?, public materiel?, public utilisateur?) {
+    this.utilisateur = new Utilisateur(null, '', '', '', new Profil(0, ''))
+  }
 }
 /*
 displayedColumns: string[] = ['id', 'date de début', 'date de fin', 'date restitution', 'select'];
