@@ -34,3 +34,4 @@ export class Materiel {
     this.categorie = categorie;
   }
 }
+

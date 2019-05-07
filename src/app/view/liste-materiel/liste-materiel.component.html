@@ -56,3 +56,58 @@
   </mat-card>
 </div>
 
+
+<mat-card class="mat-elevation-z8">
+  <p-table #dt [columns]="cols" [value]="materiels" [paginator]="true" [rows]="10">
+
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{col.header}}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr [pSelectableRow]="rowData">
+        <td *ngFor="let col of columns">
+          {{rowData[col.field]}}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="caption">
+
+    </ng-template>
+    <ng-template pTemplate="summary" let-rowData>
+      <div style="text-align:right">
+
+        <button type="button" pButton icon="fa fa-plus" label="Exporter les données" (click)="dt.exportCSV()"></button>
+      </div>
+    </ng-template>
+  </p-table>
+</mat-card>
+
+
+<!--
+<p-dataTable [value]="materiels" [rows]="10" [paginator]="true">
+  <p-headerColumnGroup>
+    <p-row>
+
+      <p-column header="Type" field="materiel.categorie" [filter]="true" filterPlaceholder="Type grade"></p-column>
+      <p-column header="Marque" field="materiel.marque" [filter]="true" filterPlaceholder="Type grade"></p-column>
+      <p-column header="Modèle" field="materiel.modele" [filter]="true" filterPlaceholder="Type grade"></p-column>
+      <p-column header="OS" field="materiel.os" [filter]="true" filterPlaceholder="Type grade"></p-column>
+      <p-column header="N° de série" field="materiel.serie" [filter]="true" filterPlaceholder="Type grade"></p-column>
+    </p-row>
+  </p-headerColumnGroup>
+  <p-column field="materiel.categorie" ></p-column>
+  <p-column field="materiel.marque" ></p-column>
+  <p-column field="materiel.modele"></p-column>
+  <p-column field="materiel.os" ></p-column>
+  <p-column field="materiel.serie"></p-column>
+  <p-footerColumnGroup>
+    <p-row>
+      <p-column footer="*Please note that Chrome browser details not included" colspan="5"></p-column>
+    </p-row>
+  </p-footerColumnGroup>
+</p-dataTable>
+-->

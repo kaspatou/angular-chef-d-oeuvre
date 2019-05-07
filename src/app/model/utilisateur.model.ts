@@ -1,5 +1,7 @@
 import {Profil} from './profil.model';
 
+
+
 export class Utilisateur {
   public id: number;
   public adresseMail: string;

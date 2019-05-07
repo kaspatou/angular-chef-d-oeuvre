@@ -1,18 +1,24 @@
-<h2>Gestion du Parc</h2>
+<h1>Gestion du Parc</h1>
 
-
-<mat-card class="mat-elevation-z8">
+<!--
+ <mat-card class="mat-elevation-z8">
 <p-table #dt [columns]="cols" [value]="materiels" selectionMode="multiple" [(selection)]="selectedMateriels">
   <ng-template pTemplate="caption">
-    <div class="ui-helper-clearfix">
-      <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="All Data" (click)="dt.exportCSV()" style="float:left"></button>
-      <button type="button" pButton icon="fa fa-file" iconPos="left" label="Selection Only" (click)="dt.exportCSV({selectionOnly:true})" style="float:right"></button>
+    <div style="text-align: right">
+      <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+      <input type="text" pInputText size="50" placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto">
     </div>
   </ng-template>
+
   <ng-template pTemplate="header" let-columns>
     <tr>
       <th *ngFor="let col of columns">
         {{col.header}}
+      </th>
+    </tr>
+    <tr>
+      <th *ngFor="let col of cols">
+        <input pInputText type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)">
       </th>
     </tr>
   </ng-template>
@@ -23,28 +29,109 @@
       </td>
     </tr>
   </ng-template>
+  <ng-template pTemplate="caption">
+
+  </ng-template>
+  <ng-template pTemplate="summary" let-rowData>
+    <div style="text-align:right">
+
+      <button type="button" pButton icon="fa fa-plus" label="Exporter les données" (click)="dt.exportCSV()"></button>
+    </div>
+  </ng-template>
 </p-table>
 </mat-card>
 
+-->
 
-<h3 class="first">Basic</h3>
-<p-table [value]="materiels">
-  <ng-template pTemplate="header">
+<!--
+<div>
+  <h1>Liste des équipements</h1>
+
+  <mat-card   class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+
+       colonne Type de matériel icone
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>Type </th>
+        <td mat-cell *matCellDef="let materiel">
+
+          <div *ngIf="materiel.categorie.nom === 'telephone'">
+            <img class='typeMateriel' src="../../../assets/img/iconmonstr-smartphone-4-48.png" alt="smartphone">
+          </div>
+          <div *ngIf="materiel.categorie.nom === 'tablette'">
+            <img class="typeMateriel" src="../../../assets/img/iconmonstr-tablet-6-48.png" alt="tablette">
+          </div>
+          <div *ngIf="materiel.categorie.nom === 'PC portable'">
+            <img class="typeMateriel" src="../../../assets/img/iconmonstr-laptop-4-48.png" alt="PC portable">
+          </div>
+          <div *ngIf="materiel.categorie.nom === 'routeur'">
+            <img class="typeMateriel" src="../../../assets/img/routeur.jpg" alt="routeur">
+          </div>
+
+      </ng-container>
+
+      colonne Marque
+      <ng-container matColumnDef="marque">
+        <th mat-header-cell *matHeaderCellDef>Marque </th>
+        <td mat-cell *matCellDef="let materiel">{{materiel.marque}}</td>
+      </ng-container>
+
+
+      colonne Modèle
+      <ng-container matColumnDef="modele">
+        <th mat-header-cell *matHeaderCellDef> Modèle </th>
+        <td mat-cell *matCellDef="let materiel"> {{materiel.modele}} </td>
+      </ng-container>
+
+
+       colonne version de système d'exploitation
+      <ng-container matColumnDef="os">
+        <th mat-header-cell *matHeaderCellDef> OS </th>
+        <td mat-cell *matCellDef="let materiel"> {{materiel.os}} </td>
+      </ng-container>
+
+       colonne statut de l'appareil
+      <ng-container matColumnDef="statut">
+        <th mat-header-cell *matHeaderCellDef> Statut </th>
+        <td mat-cell *matCellDef="let materiel"> <a class="button" routerLink="/reservation/{{materiel.id}}"></a>  </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card>
+</div>
+
+-->
+<mat-card>
+<p-table #dt [columns]="cols" [value]="materiels" selectionMode="single" [(selection)]="selectedMateriel" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10">
+  <ng-template pTemplate="caption">
+
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
     <tr>
-      <th>Marque</th>
-      <th>Modèle</th>
-      <th>OS</th>
-      <th>Serie</th>
+      <th *ngFor="let col of columns">
+        {{col.header}}
+      </th>
+    </tr>
+    <tr>
+      <th *ngFor="let col of columns" [ngSwitch]="col.field">
+        <input pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)">
+        </th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" ngFor="let materiel of selectedMateriels">
-    <tr>
-      <td>{{materiel.marque}}</td>
-      <td>{{materiel.modele}}</td>
-      <td>{{materiel.os}}</td>
-      <td>{{materiel.serie}}</td>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr [pSelectableRow]="rowData">
+      <td *ngFor="let col of columns">
+        {{rowData[col.field]}}
+      </td>
     </tr>
+  </ng-template>
+  <ng-template pTemplate="summary" let-rowData>
+    <div style="text-align:right">
+
+      <button type="button" pButton icon="fa fa-plus" label="Exporter les données" (click)="dt.exportCSV()"></button>
+    </div>
   </ng-template>
 </p-table>
-
-
+</mat-card>

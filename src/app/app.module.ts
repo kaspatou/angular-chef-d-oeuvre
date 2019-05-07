@@ -28,7 +28,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ReservationComponent } from './view/reservation/reservation.component';
 import {FullCalendarModule} from 'primeng/fullcalendar';
-import {CalendarModule} from 'primeng/primeng';
+import {CalendarModule, DataTableModule} from 'primeng/primeng';
 import {JwtInterceptor} from './http-interceptor/jwt.interceptor';
 import {ReaderGuard} from './guards/reader.guard';
 import {CreatorGuard} from './guards/creator.guard';
@@ -36,6 +36,10 @@ import {AdminGuard} from './guards/admin.guard';
 import { GestionParcComponent } from './view/gestion-parc/gestion-parc.component';
 import { GestionPretComponent } from './view/gestion-pret/gestion-pret.component';
 import {TableModule} from 'primeng/table';
+import { DialogModule, Dialog } from 'primeng/primeng';
+import {InputMaskModule} from 'primeng/inputmask';
+
+
 
 
 
@@ -81,7 +85,10 @@ import {TableModule} from 'primeng/table';
     FullCalendarModule,
     CalendarModule,
     MatCheckboxModule,
-    TableModule
+    TableModule,
+    DialogModule,
+    InputMaskModule,
+    DataTableModule
   ],
   providers: [ReaderGuard, CreatorGuard, AdminGuard,
     {

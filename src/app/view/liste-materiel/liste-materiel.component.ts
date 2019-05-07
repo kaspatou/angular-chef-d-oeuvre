@@ -8,6 +8,7 @@ import {ListeMaterielDatasource} from './liste-materiel.datasource';
 import {Categorie} from '../../model/categorie.model';
 import {CategorieService} from '../../service/categorie.service';
 import {Pret} from '../../model/pret.model';
+import {SelectItem} from '../../common/selectitem';
 
 
 
@@ -22,6 +23,10 @@ export class ListeMaterielComponent implements OnInit {
 
   /* @ViewChild(MatPaginator) paginator: MatPaginator; */
 
+  materiels: Materiel[];
+  cols: any[];
+  types: SelectItem[]
+
 
 
 
@@ -34,12 +39,27 @@ export class ListeMaterielComponent implements OnInit {
 
   ngOnInit() {
 
+    this.materielService.getListeMateriels().then(materiels => this.materiels = materiels);
+
    /* this.dataSource.paginator = this.paginator; */
     this.materielList = this.materielService.availableMateriels$;
     this.listeCategories = this.categorieService.listeCategories$;
     this.materielService.getMateriels().subscribe(materiels => {this.dataSource= new MatTableDataSource<Materiel>(materiels);
     });
 
+    this.types = [];
+    this.types.push({label: 'Telephone', value: 'telephone'});
+    this.types.push({label: 'Tablette', value: 'tablette'});
+    this.types.push({label: 'PC Portable', value: 'PC portable'});
+    this.types.push({label: 'Routeur', value: 'routeur'});
+
+    this.cols = [
+      {field: 'categorie', header: 'Type'},
+      {field: 'marque', header: 'Marque'},
+      {field: 'modele', header: 'Modèle'},
+      {field: 'os', header: 'OS'},
+      {field : 'serie', header: 'N° de Série'}
+    ]
 
   }
 
