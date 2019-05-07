@@ -41,7 +41,11 @@ export class GestionPretComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pretService.getListePrets().then(prets => this.prets = prets);
+    this.pretService.getListePrets().then(prets => {
+      this.prets = prets;
+      this.prets.forEach(pret => pret.utilisateurIdentifiant = pret.utilisateur.identifiant)
+    }
+      )
 
 
     this.cols = [
@@ -49,7 +53,7 @@ export class GestionPretComponent implements OnInit {
       {field: 'debut', header: 'Début du prêt'},
       {field: 'finPrevue', header: 'Fin du prêt'},
       {field: 'finReelle', header: 'Date de restitution'},
-      {field: 'utilisateur', header: 'Utilisateur'}
+      {field: 'utilisateurIdentifiant', header: 'Utilisateur'}
 
     ];
   }
@@ -61,11 +65,26 @@ export class GestionPretComponent implements OnInit {
   }
 
   save() {
+    const pretAEnvoyer = {
+      id: this.pret.id,
+      utilisateur: this.pret.utilisateur,
+      finReelle: new Date(this.pret.finReelle).toJSON(),
+      finPrevue: new Date(this.pret.finPrevue).toJSON(),
+      materiel: this.pret.materiel,
+      debut: new Date(this.pret.debut).toJSON()
+    }
     let prets = [...this.prets];
     if (this.newPret)
       prets.push(this.pret);
-    else
-      prets[this.prets.indexOf(this.selectedPret)] = this.pret;
+    else {
+      this.pretService.updatePret(pretAEnvoyer).subscribe(
+        pret => {
+          console.log('enoyé')
+        }
+      )
+      prets[this.prets.indexOf(this.selectedPret)] = this.pret
+
+    }
 
 
     this.prets = prets;
@@ -95,57 +114,40 @@ export class GestionPretComponent implements OnInit {
   }
 }
 
-  class PrimePret implements Pret {
-    constructor(public id?, public debut?, public finPrevue?, public finReelle?, public materiel?, public utilisateur?) {}
+class PrimePret implements Pret {
+  constructor(public id?, public debut?, public finPrevue?, public finReelle?, public materiel?, public utilisateur?) {}
 }
-  /*
-  displayedColumns: string[] = ['id', 'date de début', 'date de fin', 'date restitution', 'select'];
-  dataSource = new MatTableDataSource<Pret>()
-  selection = new SelectionModel<Pret>(true, []);
-
-  listeDesPrets: BehaviorSubject<Pret[]>;
-  menus: Menu[] = [
-    {value: 'modifier', viewValue: 'Modifier'},
-    {value: 'supprimer', viewValue: 'Supprimer'},
-    {value: 'aucune', viewValue: 'aucune action'}
-  ];
-
-
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+/*
+displayedColumns: string[] = ['id', 'date de début', 'date de fin', 'date restitution', 'select'];
+dataSource = new MatTableDataSource<Pret>()
+selection = new SelectionModel<Pret>(true, []);
+listeDesPrets: BehaviorSubject<Pret[]>;
+menus: Menu[] = [
+  {value: 'modifier', viewValue: 'Modifier'},
+  {value: 'supprimer', viewValue: 'Supprimer'},
+  {value: 'aucune', viewValue: 'aucune action'}
+];
+isAllSelected() {
+  const numSelected = this.selection.selected.length;
+  const numRows = this.dataSource.data.length;
+  return numSelected === numRows;
+}
+masterToggle() {
+  this.isAllSelected() ?
+    this.selection.clear() :
+    this.dataSource.data.forEach(row => this.selection.select(row));
+}
+checkboxLabel(row?: Pret): string {
+  if (!row) {
+    return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
   }
-
-
-  masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-
-  checkboxLabel(row?: Pret): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row`;
-  }
-
-
-
-
-
-
-
-  constructor(private  pretService: PretService) { }
-
-  ngOnInit() {
-
-
-    this.listeDesPrets = this.pretService.listePrets$;
-    this.pretService.getPrets().subscribe(prets => {this.dataSource = new MatTableDataSource<Pret>(prets);
-    })
-    console.log(this.listeDesPrets);
-  }
+  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row`;
+}
+constructor(private  pretService: PretService) { }
+ngOnInit() {
+  this.listeDesPrets = this.pretService.listePrets$;
+  this.pretService.getPrets().subscribe(prets => {this.dataSource = new MatTableDataSource<Pret>(prets);
+  })
+  console.log(this.listeDesPrets);
+}
 */
-

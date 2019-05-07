@@ -20,12 +20,8 @@ export class PretService {
     return this.httpClient.get<Pret[]>('http://localhost:8080/prets/getall');
   }
 
-  public updatePret(pret: Pret) {
-    this.httpClient.post<Pret>('http://localhost:8080/prets/modify', pret).subscribe(updatedPret => {
-        this.listePrets.push(pret);
-        this.listePrets$.next(this.listePrets);
-      }
-    );
+  public updatePret(pret) {
+    return this.httpClient.put<Pret>('http://localhost:8080/prets/modify', pret);
   }
 
   public getListePrets(){

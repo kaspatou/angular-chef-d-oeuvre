@@ -1,186 +1,179 @@
 <h1>Liste des prêts</h1>
 <mat-card class="mat-elevation-z8">
-<p-table #dt [columns]="cols" [value]="prets" selectionMode="single" [(selection)]="selectedPret" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10">
-  <ng-template pTemplate="caption">
-    cliquez sur un prêt pour le modifier ou le supprimer
-  </ng-template>
-  <ng-template pTemplate="header" let-columns>
-    <tr>
-      <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-        {{col.header}}
-        <p-sortIcon [field]="col.field"></p-sortIcon>
-      </th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-rowData let-columns="columns">
-    <tr [pSelectableRow]="rowData">
-      <td *ngFor="let col of columns">
-        {{rowData[col.field]}}
-      </td>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="summary" let-rowData>
-    <div style="text-align:left">
-      <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Nouveau prêt"></button>
-      <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="Exporter" (click)="dt.exportCSV()" style="float:right"></button>
-    </div>
-  </ng-template>
-</p-table>
+  <p-table #dt [columns]="cols" [value]="prets" selectionMode="single" [(selection)]="selectedPret" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="caption">
+      cliquez sur un prêt pour le modifier ou le supprimer
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+          {{col.header}}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr [pSelectableRow]="rowData">
+        <td *ngFor="let col of columns">
+          {{rowData[col.field]}}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary" let-rowData>
+      <div style="text-align:left">
+        <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Nouveau prêt"></button>
+        <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="Exporter" (click)="dt.exportCSV()" style="float:right"></button>
+      </div>
+    </ng-template>
+  </p-table>
 
-<p-dialog header="Details du prêt" [(visible)]="displayDialog" [responsive]="true" showEffect="fade"  [style]="{width: '280px'}">
-  <div class="ui-g ui-fluid" *ngIf="pret">
-    <!--<div class="ui-g-12">
-       <div class="ui-g-4">
-        <label for="id">Id</label>
+  <p-dialog header="Details du prêt" [(visible)]="displayDialog" [responsive]="true" showEffect="fade"  [style]="{width: '280px'}">
+    <div class="ui-g ui-fluid" *ngIf="pret">
+      <!--<div class="ui-g-12">
+         <div class="ui-g-4">
+          <label for="id">Id</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="id" [(ngModel)]="pret.id" />
+        </div>
+      </div> -->
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="debut">Début du prêt</label>
+        </div>
+        <div class="ui-g-8">
+          <!-- <input pInputText id="debut" [(ngModel)]="pret.debut" /> -->
+          <p-inputMask mask="9999/99/99" [(ngModel)]="pret.debut" placeholder="{{pret.debut}}" slotChar="yyyy/mm/dd"></p-inputMask>
+        </div>
       </div>
-      <div class="ui-g-8">
-        <input pInputText id="id" [(ngModel)]="pret.id" />
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="finPrevue">Fin du prêt</label>
+        </div>
+        <div class="ui-g-8">
+          <p-inputMask mask="9999/99/99" [(ngModel)]="pret.finPrevue" placeholder="{{pret.finPrevue}}" slotChar="yyyy/mm/dd"></p-inputMask>
+          <!-- <input pInputText id="finPrevue" [(ngModel)]="pret.finPrevue" /> -->
+        </div>
       </div>
-    </div> -->
-    <div class="ui-g-12">
-      <div class="ui-g-4">
-        <label for="debut">Début du prêt</label>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="finReelle">Restitution</label>
+        </div>
+        <div class="ui-g-8">
+          <p-inputMask mask="9999/99/99" [(ngModel)]="pret.finReelle" placeholder="{{pret.finReelle}}" slotChar="yyyy/mm/dd"></p-inputMask>
+          <!-- <input pInputText id="finReelle" [(ngModel)]="pret.finReelle" /> -->
+        </div>
       </div>
-      <div class="ui-g-8">
-        <!-- <input pInputText id="debut" [(ngModel)]="pret.debut" /> -->
-        <p-inputMask mask="9999/99/99" [(ngModel)]="pret.debut" placeholder="{{pret.debut}}" slotChar="yyyy/mm/dd"></p-inputMask>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="materiel">Matériel</label>
+        </div>
+        <div class="ui-g-8">
+          <input pInputText id="materiel" [(ngModel)]="pret.materiel" />
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="utilisateur">Utilisateur</label>
+        </div>
+        <div class="ui-g-8" *ngIf="pret.utilisateur">
+          <input pInputText id="utilisateur" [(ngModel)]="pret.utilisateur.identifiant" />
+        </div>
       </div>
     </div>
-    <div class="ui-g-12">
-      <div class="ui-g-4">
-        <label for="finPrevue">Fin du prêt</label>
+    <p-footer>
+      <div class="ui-dialog-buttonpane ui-helper-clearfix">
+        <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Supprimer"></button>
+        <button type="button" pButton icon="fa fa-check" (click)="save()" label="Enregistrer"></button>
       </div>
-      <div class="ui-g-8">
-        <p-inputMask mask="9999/99/99" [(ngModel)]="pret.finPrevue" placeholder="{{pret.finPrevue}}" slotChar="yyyy/mm/dd"></p-inputMask>
-       <!-- <input pInputText id="finPrevue" [(ngModel)]="pret.finPrevue" /> -->
-      </div>
-    </div>
-    <div class="ui-g-12">
-    <div class="ui-g-4">
-      <label for="finReelle">Restitution</label>
-    </div>
-    <div class="ui-g-8">
-      <p-inputMask mask="9999/99/99" [(ngModel)]="pret.finReelle" placeholder="{{pret.finReelle}}" slotChar="yyyy/mm/dd"></p-inputMask>
-     <!-- <input pInputText id="finReelle" [(ngModel)]="pret.finReelle" /> -->
-    </div>
-  </div>
-    <div class="ui-g-12">
-      <div class="ui-g-4">
-        <label for="materiel">Matériel</label>
-      </div>
-      <div class="ui-g-8">
-        <input pInputText id="materiel" [(ngModel)]="pret.materiel" />
-      </div>
-    </div>
-    <div class="ui-g-12">
-      <div class="ui-g-4">
-        <label for="utilisateur">Utilisateur</label>
-      </div>
-      <div class="ui-g-8">
-        <input pInputText id="utilisateur" [(ngModel)]="pret.utilisateur" />
-      </div>
-    </div>
-  </div>
-  <p-footer>
-    <div class="ui-dialog-buttonpane ui-helper-clearfix">
-      <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Supprimer"></button>
-      <button type="button" pButton icon="fa fa-check" (click)="save()" label="Enregistrer"></button>
-    </div>
-  </p-footer>
-</p-dialog>
+    </p-footer>
+  </p-dialog>
 </mat-card>
 
 
 
 
 <!--
-
 <div>
   <h1>Liste des prêts</h1>
   <mat-card class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
 -->
-      <!-- colonne Type de matériel -->
-      <!--
-      <ng-container matColumnDef="typeMat">
-        <th mat-header-cell *matHeaderCellDef>Type </th>
-        <td mat-cell *matCellDef="let materiel">{{materiel.categorie.nom}} </td>
-      </ng-container> -->
+<!-- colonne Type de matériel -->
+<!--
+<ng-container matColumnDef="typeMat">
+  <th mat-header-cell *matHeaderCellDef>Type </th>
+  <td mat-cell *matCellDef="let materiel">{{materiel.categorie.nom}} </td>
+</ng-container> -->
 
-      <!-- colonne Type de matériel icone -->
-      <!--
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>Type </th>
-        <td mat-cell *matCellDef="let materiel"><img class='typeMateriel' src="../../../assets/img/iconmonstr-smartphone-4-48.png" alt=""> </td>
-      </ng-container>
-  -->
-      <!-- colonne id du pret -->
-     <!-- <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>N° du prêt </th>
-        <td mat-cell *matCellDef="let pret">{{pret.id}}</td>
-
-      </ng-container>
-
+<!-- colonne Type de matériel icone -->
+<!--
+<ng-container matColumnDef="id">
+  <th mat-header-cell *matHeaderCellDef>Type </th>
+  <td mat-cell *matCellDef="let materiel"><img class='typeMateriel' src="../../../assets/img/iconmonstr-smartphone-4-48.png" alt=""> </td>
+</ng-container>
 -->
-      <!-- colonne date de début du prêt -->
+<!-- colonne id du pret -->
+<!-- <ng-container matColumnDef="id">
+   <th mat-header-cell *matHeaderCellDef>N° du prêt </th>
+   <td mat-cell *matCellDef="let pret">{{pret.id}}</td>
+ </ng-container>
+-->
+<!-- colonne date de début du prêt -->
 <!--      <ng-container matColumnDef="date de début">
         <th mat-header-cell *matHeaderCellDef> Date de début </th>
         <td mat-cell *matCellDef="let pret"> {{pret.debut}} </td>
       </ng-container>
-
 -->
-      <!-- colonne date de fin théorique du prêt -->
- <!--     <ng-container matColumnDef="date de fin">
-        <th mat-header-cell *matHeaderCellDef> Date de fin </th>
-        <td mat-cell *matCellDef="let pret"> {{pret.finPrevue}} </td>
-      </ng-container>
+<!-- colonne date de fin théorique du prêt -->
+<!--     <ng-container matColumnDef="date de fin">
+       <th mat-header-cell *matHeaderCellDef> Date de fin </th>
+       <td mat-cell *matCellDef="let pret"> {{pret.finPrevue}} </td>
+     </ng-container>
 -->
-      <!-- colonne date de restitution réelle du prêt -->
- <!--     <ng-container matColumnDef="date restitution">
-        <th mat-header-cell *matHeaderCellDef> Date de restitution </th>
-        <td mat-cell *matCellDef="let pret">{{pret.finReelle}}</td>
-      </ng-container>
+<!-- colonne date de restitution réelle du prêt -->
+<!--     <ng-container matColumnDef="date restitution">
+       <th mat-header-cell *matHeaderCellDef> Date de restitution </th>
+       <td mat-cell *matCellDef="let pret">{{pret.finReelle}}</td>
+     </ng-container>
 -->
-      <!-- colonne choix d'une sélection -->
- <!--     <ng-container matColumnDef="select">
-        <th mat-header-cell *matHeaderCellDef>
-          <mat-checkbox (change)="$event ? masterToggle() : null"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()"
-                        [aria-label]="checkboxLabel()">
-          </mat-checkbox>
-        </th>
-        <td mat-cell *matCellDef="let row">
-          <mat-checkbox (click)="$event.stopPropagation()"
-                        (change)="$event ? selection.toggle(row) : null"
-                        [checked]="selection.isSelected(row)"
-                        [aria-label]="checkboxLabel(row)">
-          </mat-checkbox>
-        </td>
-      </ng-container>
-
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-    </table>
-  </mat-card> -->
-  <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+<!-- colonne choix d'une sélection -->
+<!--     <ng-container matColumnDef="select">
+       <th mat-header-cell *matHeaderCellDef>
+         <mat-checkbox (change)="$event ? masterToggle() : null"
+                       [checked]="selection.hasValue() && isAllSelected()"
+                       [indeterminate]="selection.hasValue() && !isAllSelected()"
+                       [aria-label]="checkboxLabel()">
+         </mat-checkbox>
+       </th>
+       <td mat-cell *matCellDef="let row">
+         <mat-checkbox (click)="$event.stopPropagation()"
+                       (change)="$event ? selection.toggle(row) : null"
+                       [checked]="selection.isSelected(row)"
+                       [aria-label]="checkboxLabel(row)">
+         </mat-checkbox>
+       </td>
+     </ng-container>
+     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+   </table>
+ </mat-card> -->
+<!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
 <!--
 </div>
 -->
 
 
 <!--
-<p-dataTable value="#{prets}" rows="5" var="pret" paginator="true">
-                <p-column headerText="type">
-                    <h-outputText value="#{pret.id}"></h>
-                </p-column>
-                <p-column headerText="debut du pret">
-                    <h-outputText value="#{pret.debut}"/>
-                </p-column>
-                <p-column headerText="fin du pret">
-                    <p-selectBooleanCheckbox value="#{pret.finPrevue}" />
-                </p-column>
-            </p-dataTable>
+<p-dataTable value="#{prets}" rows="5" var="pret" paginator="true">
+                <p-column headerText="type">
+                    <h-outputText value="#{pret.id}"></h>
+                </p-column>
+                <p-column headerText="debut du pret">
+                    <h-outputText value="#{pret.debut}"/>
+                </p-column>
+                <p-column headerText="fin du pret">
+                    <p-selectBooleanCheckbox value="#{pret.finPrevue}" />
+                </p-column>
+            </p-dataTable>
 -->

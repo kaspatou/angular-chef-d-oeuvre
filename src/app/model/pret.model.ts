@@ -8,6 +8,7 @@ export interface Pret {
   finReelle?: Date;
   materiel?: Materiel;
   utilisateur?: Utilisateur;
+  utilisateurIdentifiant?: string;
 
 }
 
@@ -18,6 +19,7 @@ export class Pret{
   public finReelle?: Date;
   public materiel?: Materiel;
   public utilisateur?: Utilisateur
+  utilisateurIdentifiant?: string;
 
   constructor(id: number, debut: Date, finPrevue: Date, finRelle: Date, materiel: Materiel, utilisateur: Utilisateur) {
     this.id = id;
