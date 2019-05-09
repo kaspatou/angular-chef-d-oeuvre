@@ -1,6 +1,6 @@
 <h1>Liste des prêts</h1>
 <mat-card class="mat-elevation-z8">
-  <p-table #dt [columns]="cols" [value]="prets" selectionMode="single" [(selection)]="selectedPret" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10">
+  <p-table #dt [columns]="cols" [value]="prets" selectionMode="single" [(selection)]="selectedPret" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="7">
     <ng-template pTemplate="caption">
       cliquez sur un prêt pour le modifier ou le supprimer
     </ng-template>

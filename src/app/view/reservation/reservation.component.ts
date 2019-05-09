@@ -5,7 +5,9 @@ import {BehaviorSubject} from 'rxjs';
 import {Categorie} from '../../model/categorie.model';
 import {MaterielService} from '../../service/materiel.service';
 import {CategorieService} from '../../service/categorie.service';
+import {PretService} from '../../service/pret.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import frLocale from '@fullcalendar/core/locales/fr';
 
 
 @Component({
@@ -36,13 +38,13 @@ export class ReservationComponent implements OnInit {
   materielList: BehaviorSubject<Materiel[]>;
   listeCategories: BehaviorSubject<Categorie[]>;
 
-  constructor(private route: ActivatedRoute, private materielService: MaterielService, private categorieService: CategorieService, private redirection: Router) { }
+  constructor(private route: ActivatedRoute, private materielService: MaterielService, private categorieService: CategorieService, private redirection: Router, private pretService: PretService) { }
 
   ngOnInit() {
     this.fr = {
       firstDayOfWeek: 0,
       dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
-        dayNamesShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+      dayNamesShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
       dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
       monthNames: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
       monthNamesShort: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aout", "Sept", "Oct", "Nov", "Déc"],
@@ -68,7 +70,8 @@ export class ReservationComponent implements OnInit {
       header: {
         left: 'prev,next',
         center: 'title',
-        right: 'month,agendaWeek,agendaDay'
+        right: 'month,agendaWeek,agendaDay',
+
       },
       editable: true
       };

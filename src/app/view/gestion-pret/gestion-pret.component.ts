@@ -74,7 +74,8 @@ export class GestionPretComponent implements OnInit {
   }
 
   save() {
-    const identifiantUtilisateur = document.getElementById('utilisateur').value;
+    //const identifiantUtilisateur = document.getElementById('utilisateur').value;
+    const identifiantUtilisateur =(<HTMLInputElement>document.getElementById('utilisateur')).value;
     const pretAEnvoyer = {
       id: this.pret.id,
       debut: new Date(this.pret.debut).toJSON(),
@@ -134,40 +135,7 @@ export class GestionPretComponent implements OnInit {
 
 class PrimePret implements Pret {
   constructor(public id?, public debut?, public finPrevue?, public finReelle?, public materiel?, public utilisateur?) {
-    this.utilisateur = new Utilisateur(null, '', '', '', new Profil(0, ''))
+    this.utilisateur = new Utilisateur(null, '', '', '', new Profil(0, ''));
   }
 }
-/*
-displayedColumns: string[] = ['id', 'date de début', 'date de fin', 'date restitution', 'select'];
-dataSource = new MatTableDataSource<Pret>()
-selection = new SelectionModel<Pret>(true, []);
-listeDesPrets: BehaviorSubject<Pret[]>;
-menus: Menu[] = [
-  {value: 'modifier', viewValue: 'Modifier'},
-  {value: 'supprimer', viewValue: 'Supprimer'},
-  {value: 'aucune', viewValue: 'aucune action'}
-];
-isAllSelected() {
-  const numSelected = this.selection.selected.length;
-  const numRows = this.dataSource.data.length;
-  return numSelected === numRows;
-}
-masterToggle() {
-  this.isAllSelected() ?
-    this.selection.clear() :
-    this.dataSource.data.forEach(row => this.selection.select(row));
-}
-checkboxLabel(row?: Pret): string {
-  if (!row) {
-    return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-  }
-  return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row`;
-}
-constructor(private  pretService: PretService) { }
-ngOnInit() {
-  this.listeDesPrets = this.pretService.listePrets$;
-  this.pretService.getPrets().subscribe(prets => {this.dataSource = new MatTableDataSource<Pret>(prets);
-  })
-  console.log(this.listeDesPrets);
-}
-*/
+

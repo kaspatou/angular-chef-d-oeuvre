@@ -5,6 +5,7 @@ import {BehaviorSubject} from 'rxjs';
 import {Pret} from '../../model/pret.model';
 import {MaterielService} from '../../service/materiel.service';
 import {PretService} from '../../service/pret.service';
+import {LoginService} from '../../service/login.service';
 
 @Component({
   selector: 'app-historique',
@@ -30,6 +31,6 @@ export class HistoriqueComponent implements OnInit {
     this.pretService.getPrets().subscribe(prets => {this.dataSource = new MatTableDataSource<Pret>(prets);
     })
     console.log(this.listeDesPrets);
-  }
+    }
 
 }
