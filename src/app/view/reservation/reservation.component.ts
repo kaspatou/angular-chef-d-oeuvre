@@ -8,6 +8,7 @@ import {CategorieService} from '../../service/categorie.service';
 import {PretService} from '../../service/pret.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import frLocale from '@fullcalendar/core/locales/fr';
+import { Calendar } from '@fullcalendar/core';
 
 
 @Component({
@@ -15,7 +16,14 @@ import frLocale from '@fullcalendar/core/locales/fr';
   templateUrl: './reservation.component.html',
   styleUrls: ['./reservation.component.css']
 })
+
+//let calendar = new Calendar(calendarEl, {
+//  locale: frLocale
+// });
+
 export class ReservationComponent implements OnInit {
+
+
 
   materielSelected: Materiel;
   materielId: number;
@@ -40,8 +48,9 @@ export class ReservationComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private materielService: MaterielService, private categorieService: CategorieService, private redirection: Router, private pretService: PretService) { }
 
-  ngOnInit() {
+  ngOnInit() {/*
     this.fr = {
+
       firstDayOfWeek: 0,
       dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
       dayNamesShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
@@ -51,9 +60,10 @@ export class ReservationComponent implements OnInit {
       today: "Aujourd'hui",
       clear: "désélectionner",
       dateFormat: 'jj/mm/aa'
-    };
+    }; */
+    this.pretService.getListePrets().then(events => {this.events = events; });
+    console.log(this.events);
     this.materielId = this.route.snapshot.params.id;
-    console.log(this.materielId);
     for (const materielIteration of this.materielService.availableMateriels) {
       if (+this.materielId === materielIteration.id) {
         this.materielSelected = materielIteration;
@@ -66,11 +76,13 @@ export class ReservationComponent implements OnInit {
     });
 
     this.options = {
-      defaultDate: '2018-04-04',
+      plugins: [ 'interaction' ],
+      selectable: true,
+      defaultDate: new Date(),
+      locale: frLocale,
       header: {
         left: 'prev,next',
         center: 'title',
-        right: 'month,agendaWeek,agendaDay',
 
       },
       editable: true

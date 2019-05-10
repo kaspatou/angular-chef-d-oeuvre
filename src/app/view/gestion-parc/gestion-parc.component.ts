@@ -5,6 +5,9 @@ import {BehaviorSubject} from 'rxjs';
 import {MatTableDataSource} from '@angular/material';
 import {Categorie} from '../../model/categorie.model';
 import {Pret} from '../../model/pret.model';
+import {CategorieService} from '../../service/categorie.service';
+import {DonneesMateriel} from '../../model/donneesMateriel.model';
+import {DonneesMaterielService} from '../../service/donneesMateriel.service';
 
 export interface Menu {
   value: string;
@@ -27,19 +30,25 @@ export class GestionParcComponent implements OnInit {
   materiels:  Materiel[] ;
 
   selectedMateriels: Materiel[];
-  selectedMateriel: Materiel[];
+  selectedMateriel: Materiel;
   newMateriel: boolean;
   cols: any[];
   enCreation: boolean;
+  listeCategorie: Categorie[];
+  listeDonnees: DonneesMateriel[];
 
 
-  constructor(private materielService: MaterielService) { }
+  constructor(private materielService: MaterielService, private categorieService: CategorieService, private donneesMaterielService: DonneesMaterielService) { }
 
   ngOnInit() {
     /* this.materiels = this.materielService.availableMateriels$;
     this.materielService.getMateriels().subscribe(materiels => {this.dataSource= new MatTableDataSource<Materiel>(materiels);
     }); */
 
+    this.donneesMaterielService.publishDonneesMateriel();
+    this.donneesMaterielService.listeDonneesMateriel$.subscribe(donnees => this.listeDonnees = donnees);
+    this.categorieService.publishCategories();
+    this.categorieService.listeCategories$.subscribe(categorie => this.listeCategorie = categorie);
     this.materielService.getListeMateriels().then(materiels =>
     this.materiels = materiels
     );
@@ -48,7 +57,7 @@ export class GestionParcComponent implements OnInit {
       {field: 'marque', header: 'Marque'},
       {field: 'modele', header: 'Modèle'},
       {field: 'os', header: 'OS'},
-      {field : 'serie', header: 'N° de Série'}
+      {field : 'verOs', header: 'Version OS'}
     ];
   }
 
@@ -57,6 +66,55 @@ export class GestionParcComponent implements OnInit {
     this.newMateriel = true;
     this.materiel = new PrimeMateriel();
     this.displayDialog = true;
+  }
+
+  save() {
+    const nomCategorie = (<HTMLInputElement>document.getElementById('categorie')).value;
+    const idDonnees = (<HTMLInputElement>document.getElementById('donneesMateriel')).value;
+    const materielAEnvoyer = {
+      id: this.materiel.id,
+      marque: this.materiel.marque,
+      modele: this.materiel.modele,
+      imei: this.materiel.imei,
+      serie: this.materiel.serie,
+      os: this.materiel.os,
+      verOs: this.materiel.verOs,
+      categorie: this.listeCategorie.find(categorie => categorie.nom === nomCategorie),
+      donneesMateriel: this.listeDonnees.find(donnees => donnees.compteUtilisateur === idDonnees)
+
+    }
+
+    const materiels = [...this.materiels];
+    if (this.newMateriel) {
+      this.materielService.createMateriel(materielAEnvoyer).subscribe(
+        materiel => {
+          console.log('enregistré', materiel);
+        }
+      )
+      materiels.push(this.materiel);
+    } else {
+      this.materielService.updateMateriel(materielAEnvoyer).subscribe(
+        materiel => {
+          console.log('envoyé', materiel);
+        }
+      );
+      materiels[this.materiels.indexOf(this.selectedMateriel)] = this.materiel;
+
+    }
+
+
+    this.materiels = materiels;
+    this.materiel = null;
+    this.displayDialog = false;
+  }
+
+
+  delete(materielId: number = this.materiel.id) {
+    this.materielService.deleteMateriel(materielId);
+    const index = this.materiels.indexOf(this.selectedMateriel);
+    this.materiels = this.materiels.filter((val, i) => i != index);
+    this.materiel = null;
+    this.displayDialog = false;
   }
 
   onRowSelect(event) {
@@ -77,5 +135,8 @@ export class GestionParcComponent implements OnInit {
 }
 
 class PrimeMateriel implements Materiel {
-  constructor(public id?, public imei?, public marque?, public modele?, public os?, public serie?, public verOs?, public categorie?) {}
+  constructor(public id?, public imei?, public marque?, public modele?, public os?, public serie?, public verOs?, public categorie?, public donneesMateriel?) {
+    this.categorie = new Categorie(0, null);
+    this.donneesMateriel = new DonneesMateriel(0, '', '', '', '', 0, '');
+  }
 }

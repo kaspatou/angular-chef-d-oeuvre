@@ -35,12 +35,19 @@ export class MaterielService {
 
   }
 
-  public updateMateriel(materiel: Materiel) {
-    this.httpClient.post<Materiel>('http://localhost:8080/materiel/modify', materiel).subscribe(updatedMateriel => {
-      this.availableMateriels.push(materiel);
-      this.availableMateriel$.next(this.availableMateriel);
-    }
-    );
+  public updateMateriel(materiel) {
+    return this.httpClient.put<Materiel>('http://localhost:8080/materiel/modify', materiel);
+
+  }
+
+  public createMateriel(materiel) {
+    return this.httpClient.post<Materiel>('http://localhost:8080/materiel/add', materiel);
+  }
+
+  public deleteMateriel(materielId: number) {
+    this.httpClient.delete('http://localhost:8080/materiel/delete/' + materielId).subscribe(deletedMateriel => {
+      this.publishMateriels();
+    });
   }
 
   public publishMateriels() {

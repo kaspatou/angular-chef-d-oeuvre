@@ -103,6 +103,8 @@
 </div>
 
 -->
+
+<!--
 <mat-card>
 <p-table #dt [columns]="cols" [value]="materiels" selectionMode="single" [(selection)]="selectedMateriel" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10">
   <ng-template pTemplate="caption">
@@ -135,7 +137,7 @@
   </ng-template>
 </p-table>
 </mat-card>
-
+-->
 <!-- nouveau tableau -->
 
 <mat-card class="mat-elevation-z8">
@@ -204,10 +206,10 @@
       </div>
       <div class="ui-g-12">
         <div class="ui-g-4">
-          <label for="verOS">Version OS</label>
+          <label for="verOs">Version OS</label>
         </div>
         <div class="ui-g-8">
-          <input pInputText id="verOS" [(ngModel)]="materiel.verOs" />
+          <input pInputText id="verOs" [(ngModel)]="materiel.verOs" />
         </div>
       </div>
       <div class="ui-g-12">
@@ -226,14 +228,22 @@
           <input pInputText id="serie" [(ngModel)]="materiel.serie" />
         </div>
       </div>
-      <!--<div class="ui-g-12">
+      <div class="ui-g-12">
         <div class="ui-g-4">
-          <label for="utilisateur">Utilisateur</label>
+          <label for="categorie">Categorie</label>
         </div>
-        <div class="ui-g-8" *ngIf="pret.utilisateur || enCreation">
-          <input pInputText id="utilisateur" [(ngModel)]="pret.utilisateur.identifiant" />
+        <div class="ui-g-8" *ngIf="materiel.categorie || enCreation">
+          <input pInputText id="categorie" [(ngModel)]="materiel.categorie.nom" />
         </div>
-      </div> -->
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="donneesMateriel">Données Matériel</label>
+        </div>
+        <div class="ui-g-8" *ngIf="materiel.donneesMateriel.compteUtilisateur || enCreation">
+          <input pInputText id="donneesMateriel" [(ngModel)]="materiel.donneesMateriel.compteUtilisateur" />
+        </div>
+      </div>
     </div>
     <p-footer>
       <div class="ui-dialog-buttonpane ui-helper-clearfix">

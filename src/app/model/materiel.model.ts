@@ -1,4 +1,5 @@
 import {Categorie} from './categorie.model';
+import {DonneesMateriel} from './donneesMateriel.model';
 
 export interface Materiel {
   id?: number;
@@ -9,6 +10,7 @@ export interface Materiel {
   serie?: string;
   verOs?: string;
   categorie?: Categorie[];
+  donneesMateriel?: DonneesMateriel[];
 
 
 }
@@ -22,8 +24,11 @@ export class Materiel {
   public serie?: string;
   public verOs?: string;
   public categorie?: Categorie[];
+  public donneesMateriel?: DonneesMateriel[];
 
-  constructor(id: number, imei: number, marque: string, modele: string, os: string, serie: string, verOS: string, categorie: Categorie[]) {
+  constructor(id: number, imei: number, marque: string, modele: string,
+              os: string, serie: string, verOS: string, categorie: Categorie[],
+              donneesMateriel: DonneesMateriel[]) {
     this.id = id;
     this.imei = imei;
     this.marque = marque;
@@ -32,6 +37,7 @@ export class Materiel {
     this.serie = serie;
     this.verOs = verOS;
     this.categorie = categorie;
+    this.donneesMateriel = donneesMateriel;
   }
 }
 
