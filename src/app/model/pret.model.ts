@@ -6,27 +6,28 @@ export interface Pret {
   debut?: Date;
   finPrevue?: Date;
   finReelle?: Date;
-  materiel?: Materiel;
+  materiels?: Materiel;
   utilisateur?: Utilisateur;
   utilisateurIdentifiant?: string;
+  materielModele?: string;
 
 }
 
-export class Pret{
+export class Pret {
   public id?: number;
   public debut?: Date;
   public finPrevue?: Date;
   public finReelle?: Date;
-  public materiel?: Materiel;
+  public materiels?: Materiel;
   public utilisateur?: Utilisateur
   utilisateurIdentifiant?: string;
 
-  constructor(id: number, debut: Date, finPrevue: Date, finRelle: Date, materiel: Materiel, utilisateur: Utilisateur) {
+  constructor(id: number, debut: Date, finPrevue: Date, finRelle: Date, materiels: Materiel, utilisateur: Utilisateur) {
     this.id = id;
     this.debut = new Date(debut);
     this.finPrevue = new Date(finPrevue);
     this.finReelle = new Date(finRelle);
-    this.materiel = materiel;
+    this.materiels = materiels;
     this.utilisateur = utilisateur;
   }
 

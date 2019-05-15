@@ -9,6 +9,11 @@ import {PretService} from '../../service/pret.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import frLocale from '@fullcalendar/core/locales/fr';
 import { Calendar } from '@fullcalendar/core';
+import {Pret} from '../../model/pret.model';
+import {EventService} from '../../service/event.service';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
 
 
 @Component({
@@ -16,10 +21,6 @@ import { Calendar } from '@fullcalendar/core';
   templateUrl: './reservation.component.html',
   styleUrls: ['./reservation.component.css']
 })
-
-//let calendar = new Calendar(calendarEl, {
-//  locale: frLocale
-// });
 
 export class ReservationComponent implements OnInit {
 
@@ -29,106 +30,87 @@ export class ReservationComponent implements OnInit {
   materielId: number;
   options: any;
   events: any[];
-  fr: any;
-  dates: Date[];
-
-  rangeDates: Date[];
-
-  minDate: Date;
-
-  maxDate: Date;
-  date11: Date;
-  invalidDates: Array<Date>;
-
-  displayedColumns: string[] = ['type', 'marque', 'modele', 'os', 'version os'];
+  header: any;
+  footer: any;
+  dateDebut: Date;
+  dateFin: Date;
   dataSource = new MatTableDataSource<Materiel>();
+  infoDate: any;
 
   materielList: BehaviorSubject<Materiel[]>;
   listeCategories: BehaviorSubject<Categorie[]>;
 
-  constructor(private route: ActivatedRoute, private materielService: MaterielService, private categorieService: CategorieService, private redirection: Router, private pretService: PretService) { }
+  constructor(private route: ActivatedRoute, private materielService: MaterielService,
+              private categorieService: CategorieService, private redirection: Router,
+              private pretService: PretService, private eventService: EventService) { }
 
-  ngOnInit() {/*
-    this.fr = {
+  ngOnInit() {
 
-      firstDayOfWeek: 0,
-      dayNames: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
-      dayNamesShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
-      dayNamesMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
-      monthNames: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
-      monthNamesShort: ["Jan", "Fev", "Mar", "Avr", "Mai", "Juin", "Juil", "Aout", "Sept", "Oct", "Nov", "Déc"],
-      today: "Aujourd'hui",
-      clear: "désélectionner",
-      dateFormat: 'jj/mm/aa'
-    }; */
-    this.pretService.getListePrets().then(events => {this.events = events; });
-    console.log(this.events);
+
+    this.materielId = +this.route.snapshot.params.id;
+    this.eventService.getEvents(this.materielId).then(events => {this.events = events; });
+
     this.materielId = this.route.snapshot.params.id;
     for (const materielIteration of this.materielService.availableMateriels) {
       if (+this.materielId === materielIteration.id) {
         this.materielSelected = materielIteration;
       }
     }
-    console.log(this.materielSelected);
+     console.log(this.materielSelected);
     this.materielList = this.materielService.availableMateriels$;
     this.listeCategories = this.categorieService.listeCategories$;
     this.materielService.getMateriels().subscribe(materiels => {this.dataSource= new MatTableDataSource<Materiel>(materiels);
     });
 
     this.options = {
-      plugins: [ 'interaction' ],
+      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
       selectable: true,
+      selectOverlap: false,
+      weekends: false,
       defaultDate: new Date(),
       locale: frLocale,
       header: {
-        left: 'prev,next',
-        center: 'title',
 
+        left:   'prev, next',
+        center: 'today',
+        right:  'title'
       },
+      footer: {
+        left: 'prev, next',
+        right: 'custom1'
+      },
+      select: function(info) {
+        this.dateDebut = info.startStr;
+        this.dateFin = info.endStr;
+        alert('selected ' + info.start + ' to ' + info.end);
+        console.log(this.dateDebut, this.dateFin);
+        },
+
+
       editable: true
-      };
-
-    let today = new Date();
-    let month = today.getMonth();
-    let year = today.getFullYear();
-    let prevMonth = (month === 0) ? 11 : month -1;
-    let prevYear = (prevMonth === 11) ? year - 1 : year;
-    let nextMonth = (month === 11) ? 0 : month + 1;
-    let nextYear = (nextMonth === 0) ? year + 1 : year;
-    this.minDate = new Date();
-    this.minDate.getDay();
-    this.minDate.setMonth(prevMonth);
-    this.minDate.setFullYear(prevYear);
-    this.maxDate = new Date();
-    this.maxDate.setMonth(nextMonth);
-    this.maxDate.setFullYear(nextYear);
-
-    let invalidDate = new Date();
-     invalidDate.setDate(today.getDate() - 1);
-
-     console.log(today.getDate(), today.getFullYear());
-
-
-
-    this.invalidDates = [ ];
-     let deb = 3;
-     let fin = 20;
-     
-     for (; deb < fin; deb++) {
-      const autreDate = new Date();
-      autreDate.setDate(deb);
-       this.invalidDates.push(autreDate);
-       console.log(autreDate.getDate(), autreDate.getFullYear());
-    }
-     
-
-
-
-
-   // this.invalidDates = [today, invalidDate, autreDate];
+    };
 
     }
 
-  }
+ save() {
+      console.log(this.dateDebut);
+
+      const pretAEnvoyer = {
+
+      debut: this.dateDebut, //.toJSON(),
+      finReelle: this.dateFin, //).toJSON(),
+      finPrevue: new Date().toJSON(),
+      materiels: this.materielSelected.id,
+      utilisateur: 1 // TODO récupérer l'id de l'utilisateur connecté
+    };
+    console.log(pretAEnvoyer);
+    this.pretService.createPret(pretAEnvoyer).subscribe(
+        pret => {
+          console.log('enregistré', pret);
+        }
+      );
+   console.log('yooooo', this.options);
+      }
+    }
 
 

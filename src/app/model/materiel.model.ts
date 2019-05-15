@@ -11,6 +11,7 @@ export interface Materiel {
   verOs?: string;
   categorie?: Categorie[];
   donneesMateriel?: DonneesMateriel[];
+  materielModele?: string;
 
 
 }
@@ -25,6 +26,7 @@ export class Materiel {
   public verOs?: string;
   public categorie?: Categorie[];
   public donneesMateriel?: DonneesMateriel[];
+
 
   constructor(id: number, imei: number, marque: string, modele: string,
               os: string, serie: string, verOS: string, categorie: Categorie[],

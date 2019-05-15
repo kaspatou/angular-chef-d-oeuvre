@@ -65,12 +65,13 @@
           <!-- <input pInputText id="finReelle" [(ngModel)]="pret.finReelle" /> -->
         </div>
       </div>
+
       <div class="ui-g-12">
         <div class="ui-g-4">
           <label for="materiel">Matériel</label>
         </div>
-        <div class="ui-g-8">
-          <input pInputText id="materiel" [(ngModel)]="pret.materiel" />
+        <div class="ui-g-8" *ngIf="pret.materiels  || enCreation">
+          <input pInputText id="materiel" [(ngModel)]="pret.materiels.modele" />
         </div>
       </div>
       <div class="ui-g-12">

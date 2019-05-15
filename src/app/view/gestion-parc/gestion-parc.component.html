@@ -238,12 +238,37 @@
       </div>
       <div class="ui-g-12">
         <div class="ui-g-4">
-          <label for="donneesMateriel">Données Matériel</label>
+          <label for="donneesMateriel">Compte Utilisateur</label>
         </div>
         <div class="ui-g-8" *ngIf="materiel.donneesMateriel.compteUtilisateur || enCreation">
           <input pInputText id="donneesMateriel" [(ngModel)]="materiel.donneesMateriel.compteUtilisateur" />
         </div>
       </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="mdputilisateur">mot de passe</label>
+        </div>
+        <div class="ui-g-8" *ngIf="materiel.donneesMateriel.mdpUtilisateur || enCreation">
+          <input pInputText id="mdputilisateur" [(ngModel)]="materiel.donneesMateriel.mdpUtilisateur" />
+        </div>
+      </div><!--
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="compteAdmin">mot de passe</label>
+        </div>
+        <div class="ui-g-8" *ngIf="materiel.donneesMateriel.compteAdministrateur || enCreation">
+          <input pInputText id="compteAdmin" [(ngModel)]="materiel.donneesMateriel.compteAdministrateur" />
+        </div>
+      </div>
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="mdpAdmin">mot de passe</label>
+        </div>
+        <div class="ui-g-8" *ngIf="materiel.donneesMateriel.mdpAdministrateur || enCreation">
+          <input pInputText id="mdpAdmin" [(ngModel)]="materiel.donneesMateriel.mdpAdministrateur" />
+        </div>
+      </div> -->
+
     </div>
     <p-footer>
       <div class="ui-dialog-buttonpane ui-helper-clearfix">

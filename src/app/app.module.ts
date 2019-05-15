@@ -28,7 +28,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ReservationComponent } from './view/reservation/reservation.component';
 import {FullCalendarModule} from 'primeng/fullcalendar';
-import {CalendarModule, DataTableModule} from 'primeng/primeng';
+import {CalendarModule, CardModule, DataTableModule} from 'primeng/primeng';
 import {JwtInterceptor} from './http-interceptor/jwt.interceptor';
 import {ReaderGuard} from './guards/reader.guard';
 import {CreatorGuard} from './guards/creator.guard';
@@ -88,7 +88,8 @@ import {InputMaskModule} from 'primeng/inputmask';
     TableModule,
     DialogModule,
     InputMaskModule,
-    DataTableModule
+    DataTableModule,
+    CardModule
   ],
   providers: [ReaderGuard, CreatorGuard, AdminGuard,
     {

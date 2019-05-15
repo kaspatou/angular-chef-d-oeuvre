@@ -58,7 +58,7 @@ export class ListeMaterielComponent implements OnInit {
       {field: 'marque', header: 'Marque'},
       {field: 'modele', header: 'Modèle'},
       {field: 'os', header: 'OS'},
-      {field : 'serie', header: 'N° de Série'}
+      {field : 'verOs', header: 'Version OS'}
     ]
 
   }

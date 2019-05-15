@@ -13,6 +13,15 @@
 </mat-card>
 <h1>Calendrier des réservations</h1>
 <mat-card class="mat-elevation-z8">
- <p-fullCalendar [events]="events" [options]="options" class="fullcalendrier"></p-fullCalendar>
+<p-fullCalendar [events]="events" [options]="options" class="fullcalendrier" ></p-fullCalendar>
 </mat-card>
+<mat-card>
+  <button type="button" pButton icon="fa fa-check" (click)="save()" label="Enregistrer"></button>
+</mat-card>
+
+
+<!--
+<mat-card class="mat-elevation-z8">
+ <p-fullCalendar [events]="events" [options]="options" class="fullcalendrier"></p-fullCalendar>
+</mat-card> -->
 

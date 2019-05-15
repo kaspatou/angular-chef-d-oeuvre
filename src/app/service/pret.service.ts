@@ -45,6 +45,10 @@ export class PretService {
 
   }
 
+  public getListePretsByMateriel(materielId: number) {
+    return this.httpClient.get<any>('http://localhost:8080/prets/getPretsByMateriel/' + materielId);
+    }
+
   public publishPrets() {
     this.getPrets().subscribe(listeDesPrets => {
       this.listePrets = listeDesPrets;
