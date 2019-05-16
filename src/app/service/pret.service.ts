@@ -45,6 +45,10 @@ export class PretService {
 
   }
 
+  public getListePretsByUtilisateur(utilisateurId: number) {
+    return this.httpClient.get<any>('http://localhost:8080/prets/getPretsByMateriel/' + utilisateurId);
+  }
+
   public getListePretsByMateriel(materielId: number) {
     return this.httpClient.get<any>('http://localhost:8080/prets/getPretsByMateriel/' + materielId);
     }
@@ -53,6 +57,6 @@ export class PretService {
     this.getPrets().subscribe(listeDesPrets => {
       this.listePrets = listeDesPrets;
       this.listePrets$.next(this.listePrets);
-    })
+    });
   }
 }
