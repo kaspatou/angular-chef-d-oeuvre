@@ -16,7 +16,7 @@ export class UtilisateurService {
 
   constructor(private httpClient: HttpClient) { }
 
-    private getUtilisateurs(): Observable<Utilisateur[]> {
+    public getUtilisateurs(): Observable<Utilisateur[]> {
       return this.httpClient.get<Utilisateur[]>('http://localhost:8080/utilisateur/getall');
     }
 

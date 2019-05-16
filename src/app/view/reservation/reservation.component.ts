@@ -14,6 +14,10 @@ import {EventService} from '../../service/event.service';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import {environment} from '../../../environments/environment';
+import * as jwt_decode from 'jwt-decode';
+import {UtilisateurService} from '../../service/utilisateur.service';
+import {Utilisateur} from '../../model/utilisateur.model';
 
 
 @Component({
@@ -36,15 +40,34 @@ export class ReservationComponent implements OnInit {
   dateFin: string;
   dataSource = new MatTableDataSource<Materiel>();
   infoDate: any;
+  username: string;
+  utilisateur: Utilisateur;
 
   materielList: BehaviorSubject<Materiel[]>;
   listeCategories: BehaviorSubject<Categorie[]>;
+  listeUtilisateurs: BehaviorSubject<Utilisateur[]>;
 
   constructor(private route: ActivatedRoute, private materielService: MaterielService,
               private categorieService: CategorieService, private redirection: Router,
-              private pretService: PretService, private eventService: EventService) { }
+              private pretService: PretService, private eventService: EventService, private utilisateurService: UtilisateurService) { }
 
   ngOnInit() {
+
+    const decodedToken = jwt_decode(sessionStorage.getItem(environment.accessToken));
+    this.username = decodedToken.sub;
+    console.log('username', this.username);
+
+    this.utilisateurService.getUtilisateurs().subscribe( listeUtilisateurs => {
+        for (const utilisateurIteration of listeUtilisateurs) {
+          if (this.username === utilisateurIteration.identifiant) {
+            this.utilisateur = utilisateurIteration;
+            console.log('utilisateur dans methode', this.utilisateur);
+          }
+        }
+    }
+    );
+    console.log('utilisateur sortie methode', this.utilisateur);
+
 
 
     this.materielId = +this.route.snapshot.params.id;
@@ -59,8 +82,12 @@ export class ReservationComponent implements OnInit {
     // console.log(this.materielSelected);
     this.materielList = this.materielService.availableMateriels$;
     this.listeCategories = this.categorieService.listeCategories$;
-    this.materielService.getMateriels().subscribe(materiels => {this.dataSource= new MatTableDataSource<Materiel>(materiels);
+    this.materielService.getMateriels().subscribe(materiels => {this.dataSource = new MatTableDataSource<Materiel>(materiels);
     });
+    this.utilisateurService.getUtilisateurs().subscribe(utilisateurs =>
+    {this.dataSource = new MatTableDataSource<Utilisateur>(utilisateurs);
+    });
+    this.listeUtilisateurs = this.utilisateurService.availableUtilisateurs$;
 
     this.options = {
       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
@@ -105,15 +132,15 @@ export class ReservationComponent implements OnInit {
   }
 
   save() {
-    console.log(this.dateDebut);
+
 
     const pretAEnvoyer = {
 
       debut: new Date(this.dateDebut).toJSON(),
       finReelle: new Date(this.dateFin).toJSON(),
-      finPrevue: new Date().toJSON(),
+      finPrevue: new Date(this.dateFin).toJSON(),
       materiels: this.materielSelected,
-      utilisateur: 1 // TODO récupérer l'id de l'utilisateur connecté
+      utilisateur: this.utilisateur // TODO récupérer l'id de l'utilisateur connecté
     };
     console.log('pret à envoyer :', pretAEnvoyer);
     this.pretService.createPret(pretAEnvoyer).subscribe(

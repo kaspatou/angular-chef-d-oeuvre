@@ -43,6 +43,7 @@ export class LoginService {
       const decodedToken = jwt_decode(sessionStorage.getItem(environment.accessToken));
       const authorities: Array<any> = decodedToken.auth;
       this.userRoles.next(authorities.map(authority => authority.authority));
+      console.log(decodedToken);
     }
   }
 }

@@ -1,6 +1,13 @@
 import {Profil} from './profil.model';
 
+export interface Utilisateur {
+  id: number;
+  adresseMail: string;
+  identifiant: string;
+  password: string;
+  profil: Profil;
 
+}
 
 export class Utilisateur {
   public id: number;
