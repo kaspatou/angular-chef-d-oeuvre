@@ -52,7 +52,7 @@ export class ReservationComponent implements OnInit {
               private pretService: PretService, private eventService: EventService, private utilisateurService: UtilisateurService) { }
 
   ngOnInit() {
-
+    this.materielId = this.route.snapshot.params.id;
     const decodedToken = jwt_decode(sessionStorage.getItem(environment.accessToken));
     this.username = decodedToken.sub;
     console.log('username', this.username);
@@ -67,25 +67,33 @@ export class ReservationComponent implements OnInit {
     }
     );
     console.log('utilisateur sortie methode', this.utilisateur);
+    this.materielService.getMateriels().subscribe( listeMateriels => {
+      for (const materielIteration of listeMateriels) {
+        if (+this.materielId === materielIteration.id) {
+          this.materielSelected = materielIteration;
+          console.log('materiel selectionné', this.materielSelected);
+        }
+      }
+    })
 
 
 
     this.materielId = +this.route.snapshot.params.id;
     this.eventService.getEvents(this.materielId).then(events => {this.events = events; });
 
-    this.materielId = this.route.snapshot.params.id;
-    for (const materielIteration of this.materielService.availableMateriels) {
-      if (+this.materielId === materielIteration.id) {
-        this.materielSelected = materielIteration;
-      }
-    }
+   // this.materielId = this.route.snapshot.params.id;
+   // for (const materielIteration of this.materielService.availableMateriels) {
+   //   if (+this.materielId === materielIteration.id) {
+   //    this.materielSelected = materielIteration;
+  //    }
+   // }
     // console.log(this.materielSelected);
     this.materielList = this.materielService.availableMateriels$;
     this.listeCategories = this.categorieService.listeCategories$;
     this.materielService.getMateriels().subscribe(materiels => {this.dataSource = new MatTableDataSource<Materiel>(materiels);
     });
-    this.utilisateurService.getUtilisateurs().subscribe(utilisateurs =>
-    {this.dataSource = new MatTableDataSource<Utilisateur>(utilisateurs);
+    this.utilisateurService.getUtilisateurs().subscribe(utilisateurs => {this.dataSource =
+      new MatTableDataSource<Utilisateur>(utilisateurs);
     });
     this.listeUtilisateurs = this.utilisateurService.availableUtilisateurs$;
 
@@ -140,7 +148,7 @@ export class ReservationComponent implements OnInit {
       finReelle: new Date(this.dateFin).toJSON(),
       finPrevue: new Date(this.dateFin).toJSON(),
       materiels: this.materielSelected,
-      utilisateur: this.utilisateur // TODO récupérer l'id de l'utilisateur connecté
+      utilisateur: this.utilisateur
     };
     console.log('pret à envoyer :', pretAEnvoyer);
     this.pretService.createPret(pretAEnvoyer).subscribe(

@@ -6,6 +6,7 @@ import {Pret} from '../../model/pret.model';
 import {MaterielService} from '../../service/materiel.service';
 import {PretService} from '../../service/pret.service';
 import {LoginService} from '../../service/login.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-historique',
@@ -22,7 +23,10 @@ export class HistoriqueComponent implements OnInit {
  /* materielList: BehaviorSubject<Materiel[]>; */
   listeDesPrets: BehaviorSubject<Pret[]>;
 
-  constructor(private  pretService: PretService) { }
+  constructor(private  pretService: PretService, private title: Title) {
+
+    title.setTitle('Historique des prêts');
+  }
 
   ngOnInit() {
     /*this.dataSource.paginator = this.paginator;*/

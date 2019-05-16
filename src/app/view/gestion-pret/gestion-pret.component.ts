@@ -79,7 +79,7 @@ export class GestionPretComponent implements OnInit {
 
       {field: 'debut', header: 'Début du prêt'},
       {field: 'finPrevue', header: 'Fin du prêt'},
-     // {field: 'finReelle', header: 'Date de restitution'},
+      {field: 'finReelle', header: 'Date de restitution'},
       {field: 'utilisateurIdentifiant', header: 'Utilisateur'},
       {field: 'materielModele', header: 'Matériel'}
     ];
