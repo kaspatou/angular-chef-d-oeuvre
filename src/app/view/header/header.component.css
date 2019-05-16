@@ -58,6 +58,7 @@ button
 */
 
 mat-toolbar {
+  font-family: montserrat;
   background-color: #0C4DA2;
   color: white;
   display: flex;

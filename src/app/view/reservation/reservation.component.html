@@ -1,7 +1,7 @@
 <h1>Détail d'un équipement</h1>
 
 <mat-card class="mat-elevation-z8">
-   <mat-card-content>
+  <mat-card-content>
     <p>Categorie : <strong>{{ materielSelected.categorie.nom }}</strong></p>
     <p>Marque : <strong>{{materielSelected.marque}}</strong> </p>
     <p>Modèle : <strong>{{materielSelected.modele}}</strong></p>
@@ -13,7 +13,7 @@
 </mat-card>
 <h1>Calendrier des réservations</h1>
 <mat-card class="mat-elevation-z8">
-<p-fullCalendar [events]="events" [options]="options" class="fullcalendrier" ></p-fullCalendar>
+  <p-fullCalendar [events]="events" [options]="options" class="fullcalendrier" ></p-fullCalendar>
 </mat-card>
 <mat-card>
   <button type="button" pButton icon="fa fa-check" (click)="save()" label="Enregistrer"></button>
@@ -24,4 +24,3 @@
 <mat-card class="mat-elevation-z8">
  <p-fullCalendar [events]="events" [options]="options" class="fullcalendrier"></p-fullCalendar>
 </mat-card> -->
-

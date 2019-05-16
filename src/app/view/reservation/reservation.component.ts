@@ -32,8 +32,8 @@ export class ReservationComponent implements OnInit {
   events: any[];
   header: any;
   footer: any;
-  dateDebut: Date;
-  dateFin: Date;
+  dateDebut: string;
+  dateFin: string;
   dataSource = new MatTableDataSource<Materiel>();
   infoDate: any;
 
@@ -56,7 +56,7 @@ export class ReservationComponent implements OnInit {
         this.materielSelected = materielIteration;
       }
     }
-     console.log(this.materielSelected);
+    // console.log(this.materielSelected);
     this.materielList = this.materielService.availableMateriels$;
     this.listeCategories = this.categorieService.listeCategories$;
     this.materielService.getMateriels().subscribe(materiels => {this.dataSource= new MatTableDataSource<Materiel>(materiels);
@@ -79,38 +79,48 @@ export class ReservationComponent implements OnInit {
         left: 'prev, next',
         right: 'custom1'
       },
-      select: function(info) {
-        this.dateDebut = info.startStr;
-        this.dateFin = info.endStr;
-        alert('selected ' + info.start + ' to ' + info.end);
-        console.log(this.dateDebut, this.dateFin);
-        },
+      // select: function(info) {
+      //
+      //   this.dateDebut = info.start;
+      //   this.dateFin = info.end;
+      //   alert('selected ' + info.start + ' to ' + info.end);
+      //   console.log(this.dateDebut, this.dateFin);
+      //
+      // },
+      select : (function(info) {
+        this.setDate(info);
+      }).bind(this),
 
 
       editable: true
     };
 
-    }
+  }
 
- save() {
-      console.log(this.dateDebut);
+  setDate(info) {
+    this.dateDebut = info.startStr;
+    this.dateFin = info.endStr;
+    alert('selected ' + info.start + ' to ' + info.end);
+    console.log(this.dateDebut, this.dateFin);
+  }
 
-      const pretAEnvoyer = {
+  save() {
+    console.log(this.dateDebut);
 
-      debut: this.dateDebut, //.toJSON(),
-      finReelle: this.dateFin, //).toJSON(),
+    const pretAEnvoyer = {
+
+      debut: new Date(this.dateDebut).toJSON(),
+      finReelle: new Date(this.dateFin).toJSON(),
       finPrevue: new Date().toJSON(),
-      materiels: this.materielSelected.id,
+      materiels: this.materielSelected,
       utilisateur: 1 // TODO récupérer l'id de l'utilisateur connecté
     };
-    console.log(pretAEnvoyer);
+    console.log('pret à envoyer :', pretAEnvoyer);
     this.pretService.createPret(pretAEnvoyer).subscribe(
-        pret => {
-          console.log('enregistré', pret);
-        }
-      );
-   console.log('yooooo', this.options);
+      pret => {
+        console.log('enregistré', pret);
       }
-    }
-
-
+    );
+    console.log('yooooo', this.options);
+  }
+}
