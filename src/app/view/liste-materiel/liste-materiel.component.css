@@ -1,5 +1,7 @@
 table {
-  width: 100%;
+
+  /*font-family: 'Montserrat', sans-serif; */
+  width: 90%;
 
 
 }
@@ -26,6 +28,7 @@ h1 {
 }
 
 mat-card {
+  font-family: 'Montserrat', sans-serif;
   display: flex;
   width: 90%;
 

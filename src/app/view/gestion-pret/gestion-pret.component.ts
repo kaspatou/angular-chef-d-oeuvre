@@ -55,17 +55,10 @@ export class GestionPretComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.onRefresh();
     this.utilisateurService.publishUtilisateurs();
     this.utilisateurService.availableUtilisateurs$.subscribe(utilisateur => this.listeUtilisateur = utilisateur);
-    this.pretService.getListePrets().then(prets => {
-        this.prets = prets;
-        this.prets.forEach(pret => pret.utilisateurIdentifiant = pret.utilisateur.identifiant);
-        console.log(this.prets);
-      this.prets.forEach(pret => pret.materielModele = pret.materiels.modele);
-      }
-    );
-
-     this.materielService.publishMateriels();
+    this.materielService.publishMateriels();
      this.materielService.availableMateriels$.subscribe(materiel => this.listeMateriel = materiel);
    // this.materielService.getListeMateriels().then(materiels => {
    //   this.materiels = materiels;
@@ -105,29 +98,34 @@ export class GestionPretComponent implements OnInit {
       materiels: this.listeMateriel.find(materiels => materiels.modele === modeleMateriel),
       utilisateur: this.listeUtilisateur.find(utilisateur => utilisateur.identifiant === identifiantUtilisateur)
     }
+    console.log(pretAEnvoyer);
 
     const prets = [...this.prets];
     if (this.newPret) {
       this.pretService.createPret(pretAEnvoyer).subscribe(
         pret => {
           console.log('enregistré', pret);
+         this.onRefresh();
         }
-      )
-      prets.push(this.pret); }
+      );
+      // prets.push(this.pret);
+      }
     else {
       this.pretService.updatePret(pretAEnvoyer).subscribe(
         pret => {
-          console.log('envoyé');
+          console.log('envoyé', pret);
+          this.onRefresh();
         }
-      )
+      );
       prets[this.prets.indexOf(this.selectedPret)] = this.pret;
+      }
 
-    }
 
 
     this.prets = prets;
     this.pret = null;
     this.displayDialog = false;
+    this.onRefresh();
   }
 
   delete(pretId: number = this.pret.id) {
@@ -143,6 +141,17 @@ export class GestionPretComponent implements OnInit {
     this.newPret = false;
     this.pret = this.clonePret(event.data);
     this.displayDialog = true;
+  }
+
+  onRefresh() {
+    this.pretService.getListePrets().then(prets => {
+        this.prets = prets;
+        this.prets.forEach(pret => pret.utilisateurIdentifiant = pret.utilisateur.identifiant);
+        console.log(this.prets);
+        this.prets.forEach(pret => pret.materielModele = pret.materiels.modele);
+        // this.pretService.getListePrets().resolve(pret => this.prets = pret);
+      }
+    );
   }
 
   clonePret(c: Pret): Pret {

@@ -8,7 +8,7 @@ import {
   MatToolbarModule,
   MatMenuModule,
   MatTableModule,
-  MatInputModule, MatPaginatorModule, MatSidenavModule, MatNativeDateModule, MatSelectModule, MatCheckboxModule
+  MatInputModule, MatPaginatorModule, MatSidenavModule, MatNativeDateModule, MatSelectModule, MatCheckboxModule, MatTooltipModule
 } from '@angular/material';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
@@ -38,6 +38,9 @@ import { GestionPretComponent } from './view/gestion-pret/gestion-pret.component
 import {TableModule} from 'primeng/table';
 import { DialogModule, Dialog } from 'primeng/primeng';
 import {InputMaskModule} from 'primeng/inputmask';
+import {ListboxModule} from 'primeng/listbox';
+import {DropdownModule} from 'primeng/dropdown';
+
 
 
 
@@ -89,7 +92,10 @@ import {InputMaskModule} from 'primeng/inputmask';
     DialogModule,
     InputMaskModule,
     DataTableModule,
-    CardModule
+    CardModule,
+    MatTooltipModule,
+    ListboxModule,
+    DropdownModule
   ],
   providers: [ReaderGuard, CreatorGuard, AdminGuard,
     {

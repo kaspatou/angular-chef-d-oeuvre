@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: '', component: AuthentificationComponent },
   { path: 'accueil', component: RechercheMaterielComponent, canActivate: [ReaderGuard]},
   { path: 'historique', component: HistoriqueComponent, canActivate: [ReaderGuard]},
-  { path: 'listing', component: ListeMaterielComponent, canActivate: [AdminGuard]},
+  { path: 'listing', component: ListeMaterielComponent, canActivate: [ReaderGuard]},
   { path: 'recherche', component: RechercheMaterielComponent, canActivate: [ReaderGuard]},
   { path: 'reservation/:id', component: ReservationComponent, canActivate: [ReaderGuard]},
   { path: 'gestionpret', component: GestionPretComponent, canActivate: [AdminGuard]},

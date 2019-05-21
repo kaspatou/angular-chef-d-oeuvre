@@ -27,7 +27,7 @@
     </ng-template>
   </p-table>
 
-  <p-dialog header="Details du prêt" [(visible)]="displayDialog" [responsive]="true" showEffect="fade"  [style]="{width: '280px'}">
+  <p-dialog header="Details du prêt" [(visible)]="displayDialog" [responsive]="true" showEffect="fade"  [style]="{width: '480px'}">
     <div class="ui-g ui-fluid" *ngIf="pret">
       <!--<div class="ui-g-12">
          <div class="ui-g-4">
@@ -43,7 +43,13 @@
         </div>
         <div class="ui-g-8">
           <!-- <input pInputText id="debut" [(ngModel)]="pret.debut" /> -->
-          <p-inputMask mask="9999/99/99" [(ngModel)]="pret.debut" placeholder="{{pret.debut}}" slotChar="yyyy/mm/dd"></p-inputMask>
+          <!--<p-inputMask mask="9999/99/99" [(ngModel)]="pret.debut" placeholder="{{pret.debut}}" slotChar="yyyy/mm/dd"></p-inputMask>-->
+         <!-- <input type="Date" id="debut" [(ngModel)]="pret.debut" dateFormat="yyyy.MM.dd" type="{{pret.debut}}" /> -->
+          <input matInput [matDatepicker]="debut" id="debut" [(ngModel)]="pret.debut" placeholder="{{pret.debut}}" >
+          <mat-datepicker-toggle matSuffix [for]="debut"></mat-datepicker-toggle>
+          <mat-datepicker #debut></mat-datepicker>
+
+
         </div>
       </div>
       <div class="ui-g-12">
@@ -51,8 +57,12 @@
           <label for="finPrevue">Fin du prêt</label>
         </div>
         <div class="ui-g-8">
-          <p-inputMask mask="9999/99/99" [(ngModel)]="pret.finPrevue" placeholder="{{pret.finPrevue}}" slotChar="yyyy/mm/dd"></p-inputMask>
+          <!--<p-inputMask mask="9999/99/99" [(ngModel)]="pret.finPrevue" placeholder="{{pret.finPrevue}}" slotChar="yyyy/mm/dd"></p-inputMask>-->
+          <!--<input type="Date" id="finPrevue" [(ngModel)]="pret.finPrevue" dateFormat="yyyy.MM.dd" type="{{pret.finPrevue}}" />-->
           <!-- <input pInputText id="finPrevue" [(ngModel)]="pret.finPrevue" /> -->
+          <input matInput [matDatepicker]="finPrevue" id="finPrevue" [(ngModel)]="pret.finPrevue" placeholder="{{pret.finPrevue}}">
+          <mat-datepicker-toggle matSuffix [for]="finPrevue"></mat-datepicker-toggle>
+          <mat-datepicker #finPrevue></mat-datepicker>
 
         </div>
       </div>
@@ -61,8 +71,12 @@
           <label for="finReelle">Restitution</label>
         </div>
         <div class="ui-g-8">
-          <p-inputMask mask="9999/99/99" [(ngModel)]="pret.finReelle" placeholder="{{pret.finReelle}}" slotChar="yyyy/mm/dd"></p-inputMask>
+          <!--<p-inputMask mask="9999/99/99" [(ngModel)]="pret.finReelle" placeholder="{{pret.finReelle}}" slotChar="yyyy/mm/dd"></p-inputMask>-->
+          <!--<input type="Date" id="finReelle" [(ngModel)]="pret.finReelle" dateFormat="yyyy.MM.dd" type="{{pret.finReelle}}" />-->
           <!-- <input pInputText id="finReelle" [(ngModel)]="pret.finReelle" /> -->
+          <input matInput [matDatepicker]="finReelle" id="finReelle" [(ngModel)]="pret.finReelle" placeholder="{{pret.finReelle}}">
+          <mat-datepicker-toggle matSuffix [for]="finReelle"></mat-datepicker-toggle>
+          <mat-datepicker #finReelle></mat-datepicker>
         </div>
       </div>
 

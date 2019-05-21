@@ -36,9 +36,17 @@ export class GestionParcComponent implements OnInit {
   enCreation: boolean;
   listeCategorie: Categorie[];
   listeDonnees: DonneesMateriel[];
+  listeMateriel: Materiel[];
+  // ajout pour choix deroulant
+  choixCompte: DonneesMateriel[];
+  compteChoisi: DonneesMateriel;
 
 
-  constructor(private materielService: MaterielService, private categorieService: CategorieService, private donneesMaterielService: DonneesMaterielService) { }
+  constructor(private materielService: MaterielService, private categorieService: CategorieService, private donneesMaterielService: DonneesMaterielService) {
+
+  }
+
+
 
   ngOnInit() {
     /* this.materiels = this.materielService.availableMateriels$;
@@ -47,11 +55,15 @@ export class GestionParcComponent implements OnInit {
 
     this.donneesMaterielService.publishDonneesMateriel();
     this.donneesMaterielService.listeDonneesMateriel$.subscribe(donnees => this.listeDonnees = donnees);
+    this.donneesMaterielService.listeDonneesMateriel$.subscribe(listeDonnees => this.choixCompte = listeDonnees);
     this.categorieService.publishCategories();
     this.categorieService.listeCategories$.subscribe(categorie => this.listeCategorie = categorie);
+    // this.materielService.publishMateriels();
+    // this.materielService.availableMateriels$.subscribe(materiel => this.listeMateriel = materiel);
     this.materielService.getListeMateriels().then(materiels =>
     this.materiels = materiels
     );
+
 
     this.cols = [
       {field: 'marque', header: 'Marque'},
@@ -85,10 +97,12 @@ export class GestionParcComponent implements OnInit {
     }
 
     const materiels = [...this.materiels];
+    console.log(materielAEnvoyer);
     if (this.newMateriel) {
       this.materielService.createMateriel(materielAEnvoyer).subscribe(
         materiel => {
           console.log('enregistré', materiel);
+          this.onRefresh();
         }
       )
       materiels.push(this.materiel);
@@ -96,6 +110,7 @@ export class GestionParcComponent implements OnInit {
       this.materielService.updateMateriel(materielAEnvoyer).subscribe(
         materiel => {
           console.log('envoyé', materiel);
+          this.onRefresh();
         }
       );
       materiels[this.materiels.indexOf(this.selectedMateriel)] = this.materiel;
@@ -115,6 +130,12 @@ export class GestionParcComponent implements OnInit {
     this.materiels = this.materiels.filter((val, i) => i != index);
     this.materiel = null;
     this.displayDialog = false;
+  }
+
+  onRefresh() {
+    this.materielService.getListeMateriels().then(materiels =>
+      this.materiels = materiels
+    );
   }
 
   onRowSelect(event) {

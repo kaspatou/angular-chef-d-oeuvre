@@ -34,19 +34,19 @@ export class PretService {
     return this.httpClient.post<Pret>('http://localhost:8080/prets/add', pret);
   }
 
-  public getListePrets(){
+  public getListePrets() {
     console.log(this.httpClient.get<any>('http://localhost:8080/prets/getall')
     );
 
     return this.httpClient.get<any>('http://localhost:8080/prets/getall')
       .toPromise()
-      //.then(res => <Materiel[]>res.data)
+      // .then(res => <Materiel[]>res.data)
       .then(data => { return data; });
 
   }
 
   public getListePretsByUtilisateur(utilisateurId: number) {
-    return this.httpClient.get<any>('http://localhost:8080/prets/getPretsByMateriel/' + utilisateurId);
+    return this.httpClient.get<any>('http://localhost:8080/prets/getpretsbyutilisateur/' + utilisateurId);
   }
 
   public getListePretsByMateriel(materielId: number) {

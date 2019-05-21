@@ -1,10 +1,12 @@
 table {
+  font-family: 'Montserrat', sans-serif;
   width: 100%;
 
 
 }
 
 h1,h2 {
+  font-family: 'Montserrat', sans-serif;
   text-align: center;
 }
 

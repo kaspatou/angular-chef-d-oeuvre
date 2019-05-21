@@ -7,17 +7,29 @@
    margin-top: 5em;
    transform: translateY(-10%); */
 
+   font-family: 'Montserrat', sans-serif;
    display: flex;
-   width: 90%;
+   width: 50%;
+   min-width: 20em;
 
    margin: auto;
    margin-bottom: 30px;
    border-radius: 20px;
  }
 
+ p-fullCalendar {
+   font-family: 'Montserrat', sans-serif;
+  /*
+   display: flex;
+   width: 60%;
+   margin: auto;
+   margin-bottom: 30px;
+   border-radius: 20px;
+*/
+ }
 p-card {
   display: flex;
-  width: 90%;
+  width: 60%;
 
   margin: auto;
   margin-bottom: 30px;

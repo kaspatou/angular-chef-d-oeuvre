@@ -49,7 +49,9 @@ export class ReservationComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private materielService: MaterielService,
               private categorieService: CategorieService, private redirection: Router,
-              private pretService: PretService, private eventService: EventService, private utilisateurService: UtilisateurService) { }
+              private pretService: PretService, private eventService: EventService,
+              private utilisateurService: UtilisateurService,
+              private router: Router) { }
 
   ngOnInit() {
     this.materielId = this.route.snapshot.params.id;
@@ -110,10 +112,25 @@ export class ReservationComponent implements OnInit {
         center: 'today',
         right:  'title'
       },
+      customButtons: {
+        custom1: {
+          text: 'Enregistrer',
+          click: (function() {
+            this.save();
+            alert('clicked custom button 1!');
+          }).bind(this)
+        },
+        custom2: {
+          text: 'custom 2',
+          click: function() {
+            alert('clicked custom button 2!');
+          }
+        }
+      },
       footer: {
         left: 'prev, next',
-        right: 'custom1'
-      },
+        right: 'custom1',
+        },
       // select: function(info) {
       //
       //   this.dateDebut = info.start;
@@ -135,7 +152,7 @@ export class ReservationComponent implements OnInit {
   setDate(info) {
     this.dateDebut = info.startStr;
     this.dateFin = info.endStr;
-    alert('selected ' + info.start + ' to ' + info.end);
+    alert('date de départ du prêt ' + info.start + ' date de fin du prêt : ' + info.end);
     console.log(this.dateDebut, this.dateFin);
   }
 
@@ -157,5 +174,6 @@ export class ReservationComponent implements OnInit {
       }
     );
     console.log('yooooo', this.options);
+    this.router.navigate(['listing']);
   }
 }

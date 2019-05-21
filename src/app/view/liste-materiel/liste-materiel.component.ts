@@ -44,7 +44,7 @@ export class ListeMaterielComponent implements OnInit {
    /* this.dataSource.paginator = this.paginator; */
     this.materielList = this.materielService.availableMateriels$;
     this.listeCategories = this.categorieService.listeCategories$;
-    this.materielService.getMateriels().subscribe(materiels => {this.dataSource= new MatTableDataSource<Materiel>(materiels);
+    this.materielService.getMateriels().subscribe(materiels => {this.dataSource = new MatTableDataSource<Materiel>(materiels);
     });
 
     this.types = [];

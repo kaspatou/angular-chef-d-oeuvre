@@ -30,7 +30,7 @@ export class MaterielService {
 
     return this.httpClient.get<any>('http://localhost:8080/materiel/getall')
       .toPromise()
-      //.then(res => <Materiel[]>res.data)
+      // .then(res => <Materiel[]>res.data)
       .then(data => { return data; });
 
   }

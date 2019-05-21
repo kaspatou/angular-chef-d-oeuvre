@@ -48,7 +48,7 @@ export class HistoriqueComponent implements OnInit {
             this.utilisateur = utilisateurIteration;
             this.utilisateurId = utilisateurIteration.id;
             console.log('utilisateur dans methode', this.utilisateur, 'id utilisateur', this.utilisateurId);
-            this.listeDesPrets = this.pretService.listePrets$;
+           // this.listeDesPrets = this.pretService.listePrets$;
             this.pretService.getListePretsByUtilisateur(this.utilisateur.id).subscribe(prets => {
               this.dataSource = new MatTableDataSource<Pret>(prets);
             })

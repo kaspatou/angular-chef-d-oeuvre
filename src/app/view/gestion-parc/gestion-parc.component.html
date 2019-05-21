@@ -241,7 +241,10 @@
           <label for="donneesMateriel">Compte Utilisateur</label>
         </div>
         <div class="ui-g-8" *ngIf="materiel.donneesMateriel.compteUtilisateur || enCreation">
-          <input pInputText id="donneesMateriel" [(ngModel)]="materiel.donneesMateriel.compteUtilisateur" />
+         <input pInputText id="donneesMateriel" [(ngModel)]="materiel.donneesMateriel.compteUtilisateur" />
+        <!--  <p-listbox id="donneesMateriel" [options]="listeDonnees" [(ngModel)]="compteChoisi" optionLabel="compteUtilisateur"></p-listbox> -->
+        <!-- <p-dropdown id="donneesMateriel" [options]="listeDonnees" [(ngModel)]="compteChoisi" optionLabel="compteUtilisateur"></p-dropdown>
+          <p>Compte choisi : {{compteChoisi ? compteChoisi.compteUtilisateur : 'none'}}</p> -->
         </div>
       </div>
       <div class="ui-g-12">

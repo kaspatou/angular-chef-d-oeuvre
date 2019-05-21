@@ -8,16 +8,29 @@
     <p>Système d'exploitation : <strong>{{materielSelected.os}}</strong></p>
     <p>Version système d'exploitation : <strong>{{materielSelected.verOs}}</strong></p>
   </mat-card-content>
-
-
 </mat-card>
 <h1>Calendrier des réservations</h1>
-<mat-card class="mat-elevation-z8">
-  <p-fullCalendar [events]="events" [options]="options" class="fullcalendrier" ></p-fullCalendar>
-</mat-card>
+
+<!--
 <mat-card>
-  <button type="button" pButton icon="fa fa-check" (click)="save()" label="Enregistrer"></button>
+
+<h3>Pour définir les dates de votre demande de prêt :</h3>
+<p>Cliquez sur le premier jour du prêt souhaité</p>
+<p>déplacez le curseur de la souris jusqu'au dernier jour de prêt <strong>en maintenant le bouton gauche enfoncé</strong></p>
+</mat-card> -->
+<mat-card class="mat-elevation-z8">
+  <p-fullCalendar [events]="events" [options]="options" class="fullcalendrier" >
+  </p-fullCalendar>
+
 </mat-card>
+
+
+
+
+
+
+  <!--<button type="button" pButton icon="fa fa-check" (click)="save()" label="Enregistrer"></button>-->
+
 
 
 <!--
