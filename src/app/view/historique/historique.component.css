@@ -8,28 +8,21 @@ h1 {
   text-align: center;
 }
 
-.button {
-  display: inline-block;
-  text-align: center;
-  vertical-align: middle;
-  padding: 10px 10px;
-  border: 2px solid #000000;
-  border-radius: 100px;
-  background: #1bf529;
-  background: -webkit-gradient(linear, left top, left bottom, from(#1bf529), to(#1aeb32));
-  background: -moz-linear-gradient(top, #1bf529, #1aeb32);
-  background: linear-gradient(to bottom, #1bf529, #1aeb32);
-  text-shadow: #790a0a 1px 1px 1px;
-  font: normal normal bold 18px arial;
-  color: #ffffff;
-  text-decoration: none;
-}
-
 mat-card {
   display: flex;
   width: 90%;
   margin: auto;
-  border-radius: 10px;
-  box-shadow: 8px 8px 12px #003DA5;
+  margin-bottom: 30px;
+  border-radius: 20px;
+  /* box-shadow: 8px 8px 12px #003DA5; */
 
 }
+
+@media (max-width: 600px) {
+  .ui-button-success, .ui-button-warning, .ui-button-info {
+
+    font-size: 10px;
+  }
+}
+
+

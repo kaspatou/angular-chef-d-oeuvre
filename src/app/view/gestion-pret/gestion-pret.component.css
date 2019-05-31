@@ -35,3 +35,10 @@ mat-card {
  /* box-shadow: 8px 8px 12px #003DA5; */
 
 }
+
+td {
+  margin-left: 0;
+}
+.test {
+  padding-left: 0;
+}

@@ -40,3 +40,9 @@ mat-card {
 
 
 }
+@media (max-width: 600px) {
+  .ui-button-success,ui-button-warning,ui-button-info {
+
+    font-size: 9px;
+  }
+}

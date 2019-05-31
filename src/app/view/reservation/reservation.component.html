@@ -1,6 +1,10 @@
 <h1>Détail d'un équipement</h1>
-
 <mat-card class="mat-elevation-z8">
+
+
+  <mat-card-header>
+  <mat-card-subtitle>Détail d'un équipement</mat-card-subtitle>
+  </mat-card-header>
   <mat-card-content>
     <p>Categorie : <strong>{{ materielSelected.categorie.nom }}</strong></p>
     <p>Marque : <strong>{{materielSelected.marque}}</strong> </p>
@@ -8,6 +12,7 @@
     <p>Système d'exploitation : <strong>{{materielSelected.os}}</strong></p>
     <p>Version système d'exploitation : <strong>{{materielSelected.verOs}}</strong></p>
   </mat-card-content>
+
 </mat-card>
 <h1>Calendrier des réservations</h1>
 
@@ -23,6 +28,7 @@
   </p-fullCalendar>
 
 </mat-card>
+
 
 
 

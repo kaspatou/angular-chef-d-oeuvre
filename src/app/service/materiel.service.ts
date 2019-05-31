@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {Materiel} from '../model/materiel.model';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
+import {MessageService} from './message.service';
 
 @Injectable ({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class MaterielService {
   public availableMateriel: Materiel;
   availableMateriel$: BehaviorSubject<Materiel> = new BehaviorSubject(this.availableMateriel);
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private messageService: MessageService) {
 
   }
 
@@ -36,16 +37,22 @@ export class MaterielService {
   }
 
   public updateMateriel(materiel) {
-    return this.httpClient.put<Materiel>('http://localhost:8080/materiel/modify', materiel);
+    return this.httpClient.put<Materiel>('http://localhost:8080/materiel/modify', materiel)
+      .pipe(
+      tap((_ => this.messageService.add('Le matériel a bien été mis à jour', true)))
+    );;
 
   }
 
   public createMateriel(materiel) {
-    return this.httpClient.post<Materiel>('http://localhost:8080/materiel/add', materiel);
+    return this.httpClient.post<Materiel>('http://localhost:8080/materiel/add', materiel).pipe(
+      tap((_ => this.messageService.add('Le matériel a bien été ajouté', true)))
+    );;
   }
 
   public deleteMateriel(materielId: number) {
     this.httpClient.delete('http://localhost:8080/materiel/delete/' + materielId).subscribe(deletedMateriel => {
+      this.messageService.add('Le matériel a bien été supprimé', true);
       this.publishMateriels();
     });
   }

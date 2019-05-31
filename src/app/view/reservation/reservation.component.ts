@@ -18,6 +18,9 @@ import {environment} from '../../../environments/environment';
 import * as jwt_decode from 'jwt-decode';
 import {UtilisateurService} from '../../service/utilisateur.service';
 import {Utilisateur} from '../../model/utilisateur.model';
+import {Title} from '@angular/platform-browser';
+
+
 
 
 @Component({
@@ -51,7 +54,9 @@ export class ReservationComponent implements OnInit {
               private categorieService: CategorieService, private redirection: Router,
               private pretService: PretService, private eventService: EventService,
               private utilisateurService: UtilisateurService,
-              private router: Router) { }
+              private router: Router, private title: Title) {
+    title.setTitle('Réservation matériel');
+  }
 
   ngOnInit() {
     this.materielId = this.route.snapshot.params.id;
@@ -109,8 +114,8 @@ export class ReservationComponent implements OnInit {
       header: {
 
         left:   'prev, next',
-        center: 'today',
-        right:  'title'
+        center: 'title',
+        right:  'today'
       },
       customButtons: {
         custom1: {
@@ -119,12 +124,6 @@ export class ReservationComponent implements OnInit {
             this.save();
             alert('clicked custom button 1!');
           }).bind(this)
-        },
-        custom2: {
-          text: 'custom 2',
-          click: function() {
-            alert('clicked custom button 2!');
-          }
         }
       },
       footer: {
@@ -144,6 +143,7 @@ export class ReservationComponent implements OnInit {
       }).bind(this),
 
 
+
       editable: true
     };
 
@@ -152,17 +152,19 @@ export class ReservationComponent implements OnInit {
   setDate(info) {
     this.dateDebut = info.startStr;
     this.dateFin = info.endStr;
-    alert('date de départ du prêt ' + info.start + ' date de fin du prêt : ' + info.end);
+    // alert('date de départ du prêt ' + info.start + ' date de fin du prêt : ' + info.end);
     console.log(this.dateDebut, this.dateFin);
   }
 
+  onRefresh() {
+    this.eventService.getEvents(this.materielId).then(events => {this.events = events; });
+  }
+
   save() {
-
-
     const pretAEnvoyer = {
 
       debut: new Date(this.dateDebut).toJSON(),
-      finReelle: new Date(this.dateFin).toJSON(),
+      finReelle: null,   // new Date(this.dateFin).toJSON(),
       finPrevue: new Date(this.dateFin).toJSON(),
       materiels: this.materielSelected,
       utilisateur: this.utilisateur
@@ -170,10 +172,12 @@ export class ReservationComponent implements OnInit {
     console.log('pret à envoyer :', pretAEnvoyer);
     this.pretService.createPret(pretAEnvoyer).subscribe(
       pret => {
+        this.onRefresh();
+
         console.log('enregistré', pret);
       }
     );
     console.log('yooooo', this.options);
-    this.router.navigate(['listing']);
+
   }
 }

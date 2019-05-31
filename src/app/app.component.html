@@ -13,11 +13,11 @@
     </a>
     <span class="example-spacer"></span>
     <div fxShow="true" fxHide.lt-md="true">
-      <a mat-button routerLink="/historique">Historique des prêts</a>
-      <a mat-button routerLink="/recherche">Demande de prêt</a>
-      <a mat-button routerLink="/gestionparc">Gestion du Parc</a>
-      <a mat-button routerLink="/gestionpret">Gestion des Prêts</a>
-      <a mat-button routerLink="/recherche">Recherche</a>
+      <a *ngIf="isReader" mat-button routerLink="/historique">Historique des prêts</a>
+      <a *ngIf="isReader" mat-button routerLink="/listing">Demande de prêt</a>
+      <a *ngIf="isAdmin" mat-button routerLink="/gestionparc">Gestion du Parc</a>
+      <a *ngIf="isAdmin" mat-button routerLink="/gestionpret">Gestion des Prêts</a>
+      <!--<a *ngIf="isReader" mat-button routerLink="/recherche">Recherche</a>-->
     </div>
 
   </mat-toolbar>
@@ -26,15 +26,15 @@
     <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over"  opened="false" fxHide.gt-sm="true">
       <div fxLayout="column">
         <a mat-button routerLink="/historique">Historique des prêts</a>
-        <a mat-button routerLink="/recherche">Demande de prêt</a>
-        <a mat-button routerLink="/gestionparc">gestion du parc</a>
+        <a mat-button routerLink="/listing">Demande de prêt</a>
+        <a mat-button routerLink="/gestionparc">Gestion du parc</a>
         <a mat-button routerLink="/gestionpret">Gestion des prêts</a>
-        <a mat-button routerLink="/recherche">Recherche</a>
+        <!--<a mat-button routerLink="/recherche">Recherche</a>-->
       </div>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill>
       <router-outlet></router-outlet>
-
+      <app-message></app-message>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

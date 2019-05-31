@@ -29,7 +29,7 @@ export class LoginService {
 
         this.getUserRoles();
 
-        this.router.navigate(['/accueil']);
+        this.router.navigate(['/listing']);
       },
       error => console.log('Error while login'));
   }

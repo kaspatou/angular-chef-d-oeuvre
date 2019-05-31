@@ -141,9 +141,13 @@
 <!-- nouveau tableau -->
 
 <mat-card class="mat-elevation-z8">
-  <p-table #dt [columns]="cols" [value]="materiels" selectionMode="single" [(selection)]="selectedMateriel" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="7">
+  <p-table #dt [columns]="cols" [value]="materiels" selectionMode="single" [(selection)]="selectedMateriel" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="8">
     <ng-template pTemplate="caption">
       cliquez sur un équipement pour le modifier ou le supprimer
+      <div style="text-align: right">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText size="30" placeholder="Rechercher" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+      </div>
     </ng-template>
     <ng-template pTemplate="header" let-columns>
       <tr>
@@ -168,7 +172,7 @@
     </ng-template>
   </p-table>
 
-  <p-dialog header="Details de l'équipement" [(visible)]="displayDialog" [responsive]="true" showEffect="fade"  [style]="{width: '280px'}">
+  <p-dialog header="Details de l'équipement" [(visible)]="displayDialog" [responsive]="true" showEffect="fade"  [style]="{width: '320px'}">
     <div class="ui-g ui-fluid" *ngIf="materiel">
       <!--<div class="ui-g-12">
          <div class="ui-g-4">
@@ -193,6 +197,16 @@
         </div>
         <div class="ui-g-8">
           <input pInputText id="modele" [(ngModel)]="materiel.modele" />
+
+        </div>
+      </div>
+
+      <div class="ui-g-12">
+        <div class="ui-g-4">
+          <label for="pin">Code PIN</label>
+        </div>
+        <div class="ui-g-8" *ngIf="materiel.donneesMateriel.pin || enCreation">
+          <input pInputText id="pin" [(ngModel)]="materiel.donneesMateriel.pin" />
 
         </div>
       </div>
@@ -247,6 +261,7 @@
           <p>Compte choisi : {{compteChoisi ? compteChoisi.compteUtilisateur : 'none'}}</p> -->
         </div>
       </div>
+
       <div class="ui-g-12">
         <div class="ui-g-4">
           <label for="mdputilisateur">mot de passe</label>

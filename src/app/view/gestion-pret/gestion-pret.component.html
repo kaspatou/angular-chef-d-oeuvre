@@ -1,6 +1,7 @@
 <h1>Liste des prêts</h1>
+<!--
 <mat-card class="mat-elevation-z8">
-  <p-table #dt [columns]="cols" [value]="prets" selectionMode="single" [(selection)]="selectedPret" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="7">
+  <p-table #dt [columns]="cols" [value]="prets" selectionMode="single" [(selection)]="selectedPret" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="10">
     <ng-template pTemplate="caption">
       cliquez sur un prêt pour le modifier ou le supprimer
     </ng-template>
@@ -8,7 +9,7 @@
       <tr>
         <th *ngFor="let col of columns" [pSortableColumn]="col.field">
           {{col.header}}
-          <p-sortIcon [field]="col.field"></p-sortIcon>
+         <p-sortIcon [field]="col.field"></p-sortIcon>
         </th>
       </tr>
     </ng-template>
@@ -25,7 +26,50 @@
         <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="Exporter" (click)="dt.exportCSV()" style="float:right"></button>
       </div>
     </ng-template>
-  </p-table>
+  </p-table>-->
+
+  <!-- tableau responsive -->
+
+  <mat-card class="mat-elevation-z8">
+    <div class="table-responsive">
+    <p-table #dt [columns]="cols" [value]="prets" selectionMode="single" [(selection)]="selectedPret" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="8">
+      <ng-template pTemplate="caption">
+        Cliquez sur un prêt pour le modifier ou le supprimer
+        <div style="text-align: right">
+          <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+          <input type="text" pInputText size="30" placeholder="Rechercher" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-pret>
+        <tr>
+          <th class="ui-p-1">Début du prêt</th>
+          <th class="ui-p-1">Fin du prêt</th>
+          <th class="ui-p-5">Date de restitution</th>
+          <th class="ui-p-1">Matériel</th>
+          <th class="ui-p-1">Utilisateur</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-pret let-columns="columns">
+        <tr>
+          <td class="ui-p-1" style="padding-left: 0" [pSelectableRow]="pret">{{pret.debut | date: 'dd/MM/yyyy'}}</td>
+          <td class="ui-p-1" style="padding-left: 0" [pSelectableRow]="pret">{{pret.finPrevue | date: 'dd/MM/yyyy'}}</td>
+          <td class="ui-p-5" style="padding-left: 0" [pSelectableRow]="pret">{{pret.finReelle | date: 'dd/MM/yyyy'}}</td>
+          <td class="ui-p-1" [pSelectableRow]="pret">{{pret.materiels.modele}}</td>
+          <td class="ui-p-1" [pSelectableRow]="pret">{{pret.utilisateur.identifiant}}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary" let-pret>
+        <div style="text-align:left">
+          <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Nouveau prêt"></button>
+          <button type="button" pButton icon="fa fa-file-o" iconPos="left" label="Exporter" (click)="dt.exportCSV()" style="float:right"></button>
+        </div>
+      </ng-template>
+    </p-table>
+    </div>
+  </mat-card>
+
+
+
 
   <p-dialog header="Details du prêt" [(visible)]="displayDialog" [responsive]="true" showEffect="fade"  [style]="{width: '480px'}">
     <div class="ui-g ui-fluid" *ngIf="pret">
@@ -103,8 +147,11 @@
         <button type="button" pButton icon="fa fa-check" (click)="save()" label="Enregistrer"></button>
       </div>
     </p-footer>
-  </p-dialog>
-</mat-card>
+  <!--</p-dialog>-->
+<
+
+
+
 
 
 

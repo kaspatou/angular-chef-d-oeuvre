@@ -10,6 +10,7 @@ export interface Pret {
   utilisateur?: Utilisateur;
   utilisateurIdentifiant?: string;
   materielModele?: string;
+  materielId?: number;
 
 }
 

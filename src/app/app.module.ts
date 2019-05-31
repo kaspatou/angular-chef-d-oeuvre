@@ -40,6 +40,7 @@ import { DialogModule, Dialog } from 'primeng/primeng';
 import {InputMaskModule} from 'primeng/inputmask';
 import {ListboxModule} from 'primeng/listbox';
 import {DropdownModule} from 'primeng/dropdown';
+import { MessageComponent } from './message/message.component';
 
 
 
@@ -59,7 +60,8 @@ import {DropdownModule} from 'primeng/dropdown';
     ListeMaterielComponent,
     ReservationComponent,
     GestionParcComponent,
-    GestionPretComponent
+    GestionPretComponent,
+    MessageComponent
 
   ],
   imports: [

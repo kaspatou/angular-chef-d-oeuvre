@@ -1,54 +1,107 @@
-<div class="mat-elevation-z8">
+
   <h1>Liste de vos anciens prêts</h1>
+
+<mat-card class="mat-elevation-z8">
+  <p-table #dt [columns]="cols" [value]="prets" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="caption">
+      <div style="text-align: right">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText size="30" placeholder="Rechercher" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+      </div>
+
+      Historique de vos prêts
+    </ng-template>
+    <ng-template pTemplate="header" let-col>
+      <tr>
+        <th class="ui-p-5">Début du prêt</th>
+        <th class="ui-p-1">Fin du prêt</th>
+        <th class="ui-p-5">Date de restitution</th>
+        <th class="ui-p-1">Matériel</th>
+        <th class="ui-p-1">Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pret>
+      <tr>
+        <td class="ui-p-4">{{pret.debut}}</td>
+        <td class="ui-p-1">{{pret.finPrevue}}</td>
+        <td class="ui-p-4">{{pret.finReelle}}</td>
+        <td class="ui-p-1">{{pret.materiels.modele}}</td>
+        <td class="ui-p-1" align="center"><a *ngIf="pret.finReelle != null" button pButton style="width: 8em" type="button" class="ui-button-success" pButton (click)="onRenouveller(pret.materiels.id)" label="Renouveller"></a><a *ngIf="(pret.debut | date: 'yyyy-MM-dd') >= (dateDebut | date: 'yyyy-MM-dd')" style="width: 8em" type="button" class="ui-button-warning" pButton (click)="onSupprimer(pret.id)" label="Annuler"></a><a *ngIf="(pret.finReelle == null) && (pret.debut | date: 'yyyy-MM-dd') < (dateDebut | date: 'yyyy-MM-dd')" button pButton style="width: 8em" type="button" class="ui-button-info" pButton (click)="onRenouveller(pret.materiels.id)" label="En cours"></a></td>
+        <!-- style="width: 8em" -->
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      Vous avez effectué {{prets?.length}} prêts
+    </ng-template>
+  </p-table>
+
+</mat-card>
+
+  <!--
   <mat-card>
-  <table mat-table [dataSource]="dataSource">
+    <p-dataTable [value]="prets">
+      <p-column header="Début du prêt" [filter]="true" field="debut"></p-column>
+      <p-column header="Fin du prêt" [filter]="true" field="finReelle"></p-column>
 
-    <!-- colonne Type de matériel -->
-    <!--
-    <ng-container matColumnDef="typeMat">
-      <th mat-header-cell *matHeaderCellDef>Type </th>
-      <td mat-cell *matCellDef="let materiel">{{materiel.categorie.nom}} </td>
-    </ng-container> -->
-
-    <!-- colonne Type de matériel icone -->
-    <!--
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef>Type </th>
-      <td mat-cell *matCellDef="let materiel"><img class='typeMateriel' src="../../../assets/img/iconmonstr-smartphone-4-48.png" alt=""> </td>
-    </ng-container>
--->
-    <!-- colonne id du pret -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef>N° du prêt </th>
-      <td mat-cell *matCellDef="let pret">{{pret.id}}</td>
-
-    </ng-container>
+      <p-column header="Matériel" [filter]="true" field="modele">
+        <ng-template let-col let-pret= "rowData" pTemplate="body"> -->
+          <!--{{getMaterielName(pret)}}-->
+      <!--    {{pret.materiels.modele}}
+        </ng-template>
+      </p-column>
+    </p-dataTable>
 
 
-    <!-- colonne Modèle -->
-    <ng-container matColumnDef="date de début">
-      <th mat-header-cell *matHeaderCellDef> Date de début </th>
-      <td mat-cell *matCellDef="let pret"> {{pret.debut}} </td>
-    </ng-container>
-
-
-    <!-- colonne version de système d'exploitation -->
-    <ng-container matColumnDef="date de fin">
-      <th mat-header-cell *matHeaderCellDef> Date de fin </th>
-      <td mat-cell *matCellDef="let pret"> {{pret.finPrevue}} </td>
-    </ng-container>
-
-    <!-- colonne statut de l'appareil -->
-    <ng-container matColumnDef="date restitution">
-      <th mat-header-cell *matHeaderCellDef> Date de restitution </th>
-      <td mat-cell *matCellDef="let pret">{{pret.finReelle}}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-  </table>
   </mat-card>
- <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
 
-</div>
+  <mat-card class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+-->
+      <!-- colonne Type de matériel -->
+      <!--
+      <ng-container matColumnDef="typeMat">
+        <th mat-header-cell *matHeaderCellDef>Type </th>
+        <td mat-cell *matCellDef="let materiel">{{materiel.categorie.nom}} </td>
+      </ng-container> -->
+
+      <!-- colonne Type de matériel icone -->
+      <!--
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Type </th>
+        <td mat-cell *matCellDef="let materiel"><img class='typeMateriel' src="../../../assets/img/iconmonstr-smartphone-4-48.png" alt=""> </td>
+      </ng-container>
+  -->
+      <!-- colonne id du pret -->
+    <!--  <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>N° du prêt </th>
+        <td mat-cell *matCellDef="let pret">{{pret.id}}</td>
+
+      </ng-container>
+
+-->
+      <!-- colonne Modèle -->
+  <!--    <ng-container matColumnDef="date de début">
+        <th mat-header-cell *matHeaderCellDef> Date de début </th>
+        <td mat-cell *matCellDef="let pret"> {{pret.debut}} </td>
+      </ng-container>
+
+-->
+      <!-- colonne version de système d'exploitation -->
+ <!--     <ng-container matColumnDef="date de fin">
+        <th mat-header-cell *matHeaderCellDef> Date de fin </th>
+        <td mat-cell *matCellDef="let pret"> {{pret.finPrevue}} </td>
+      </ng-container>
+-->
+      <!-- colonne statut de l'appareil -->
+ <!--     <ng-container matColumnDef="date restitution">
+        <th mat-header-cell *matHeaderCellDef> Date de restitution </th>
+        <td mat-cell *matCellDef="let pret">{{pret.finReelle}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </mat-card>-->
+  <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+

@@ -8,6 +8,7 @@ import {Pret} from '../../model/pret.model';
 import {CategorieService} from '../../service/categorie.service';
 import {DonneesMateriel} from '../../model/donneesMateriel.model';
 import {DonneesMaterielService} from '../../service/donneesMateriel.service';
+import {Title} from '@angular/platform-browser';
 
 export interface Menu {
   value: string;
@@ -42,7 +43,9 @@ export class GestionParcComponent implements OnInit {
   compteChoisi: DonneesMateriel;
 
 
-  constructor(private materielService: MaterielService, private categorieService: CategorieService, private donneesMaterielService: DonneesMaterielService) {
+  constructor(private materielService: MaterielService, private categorieService: CategorieService,
+              private donneesMaterielService: DonneesMaterielService, private title: Title) {
+    title.setTitle('gestion du parc');
 
   }
 
