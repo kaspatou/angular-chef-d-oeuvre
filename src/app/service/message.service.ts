@@ -18,12 +18,13 @@ export class MessageService {
     if (affichage) {
       this.afficher = true;
       this.messages.push(message);
+      this.dureAffichage = 0;
       this.timer = setInterval(() => {
         this.afficheDepuis = this.afficheDepuis + 1;
         if (this.afficheDepuis >= this.dureAffichage) {
           this.clear();
         }
-      }, 1000);
+      }, 3000);
     }
   }
 

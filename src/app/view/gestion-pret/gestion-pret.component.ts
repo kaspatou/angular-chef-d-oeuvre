@@ -27,77 +27,74 @@ export interface Menu {
 
   styles: [`
     /* Column Priorities */
-        @media only all {
-            th.ui-p-6,
-            td.ui-p-6,
-            th.ui-p-5,
-            td.ui-p-5,
-            th.ui-p-4,
-            td.ui-p-4,
-            th.ui-p-3,
-            td.ui-p-3,
-            th.ui-p-2,
-            td.ui-p-2,
-            th.ui-p-1,
-            td.ui-p-1 {
-                display: none;
-            }
-        }
-        
-        /* Show priority 1 at 320px (20em x 16px) */
-        @media screen and (min-width: 20em) {
-            th.ui-p-1,
-            td.ui-p-1 {
-                display: table-cell;
-              padding-left: 0px;
-            }
-        }
-        
-        /* Show priority 2 at 480px (30em x 16px) */
-        @media screen and (min-width: 30em) {
-            th.ui-p-2,
-            td.ui-p-2 {
-                display: table-cell;
-              padding-left: 0px;
-              }
-        }
-        
-        /* Show priority 3 at 640px (40em x 16px) */
-        @media screen and (min-width: 40em) {
-            th.ui-p-3,
-            td.ui-p-3 {
-                display: table-cell;
-              padding-left: 0;
-            }
-        }
-        
-        /* Show priority 4 at 800px (50em x 16px) */
-        @media screen and (min-width: 50em) {
-            th.ui-p-4,
-            td.ui-p-4 {
-                display: table-cell;
-              padding-left: 0;
-            }
-        }
-        
-        /* Show priority 5 at 960px (60em x 16px) */
-        @media screen and (min-width: 60em) {
-            th.ui-p-5,
-            td.ui-p-5 {
-                display: table-cell;
-              padding-left: 0;
-            }
-        }
-        
-        /* Show priority 6 at 1,120px (70em x 16px) */
-        @media screen and (min-width: 70em) {
-            th.ui-p-6,
-            td.ui-p-6 {
-                display: table-cell;
-              padding-left: 0;
-            }
-        }
-    `]
+  @media only all {
+    th.ui-p-6,
+    td.ui-p-6,
+    th.ui-p-5,
+    td.ui-p-5,
+    th.ui-p-4,
+    td.ui-p-4,
+    th.ui-p-3,
+    td.ui-p-3,
+    th.ui-p-2,
+    td.ui-p-2,
+    th.ui-p-1,
+    td.ui-p-1 {
+      display: none;
+    }
+  }
+    /* Show priority 1 at 320px (20em x 16px) */
+    @media screen and (min-width: 20em) {
+      th.ui-p-1,
+      td.ui-p-1 {
+        display: table-cell;
+        padding-left: 0px;
+      }
+    }
+    
+    /* Show priority 2 at 480px (30em x 16px) */
+    @media screen and (min-width: 30em) {
+      th.ui-p-2,
+      td.ui-p-2 {
+        display: table-cell;
+        padding-left: 0px;
+      }
+    }
+    
+    /* Show priority 3 at 640px (40em x 16px) */
+    @media screen and (min-width: 40em) {
+      th.ui-p-3,
+      td.ui-p-3 {
+        display: table-cell;
+        padding-left: 0;
+      }
+    }
+    
+    /* Show priority 4 at 800px (50em x 16px) */
+    @media screen and (min-width: 50em) {
+      th.ui-p-4,
+      td.ui-p-4 {
+        display: table-cell;
+        padding-left: 0;
+      }
+    }
+    /* Show priority 5 at 960px (60em x 16px) */
+    @media screen and (min-width: 60em) {
+      th.ui-p-5,
+      td.ui-p-5 {
+        display: table-cell;
+        padding-left: 0;
+      }
+    }
+    /* Show priority 6 at 1,120px (70em x 16px) */
+    @media screen and (min-width: 70em) {
+      th.ui-p-6,
+      td.ui-p-6 {
+        display: table-cell;
+        padding-left: 0;
+      }
+    }
+  `]
 })
 export class GestionPretComponent implements OnInit {
 
@@ -137,16 +134,16 @@ export class GestionPretComponent implements OnInit {
     this.utilisateurService.availableUtilisateurs$.subscribe(utilisateur => this.listeUtilisateur = utilisateur);
     this.materielService.publishMateriels();
      this.materielService.availableMateriels$.subscribe(materiel => this.listeMateriel = materiel);
-   // this.materielService.getListeMateriels().then(materiels => {
-   //   this.materiels = materiels;
-   //   this.materiels.forEach(materiel => materiel.materielModele = materiel.modele);
-   // }
-   // );
+    // this.materielService.getListeMateriels().then(materiels => {
+    // this.materiels = materiels;
+    // this.materiels.forEach(materiel => materiel.materielModele = materiel.modele);
+    // }
+    // );
 
 
 
     this.cols = [
-      {field: 'utilisateurIdentifiant', header: 'Utilisateur'},
+      {field: 'utilisateurIdentifiant', header: 'Emprunteur'},
       {field: 'materielModele', header: 'Matériel'},
       {field: 'debut', header: 'Début du prêt'},
       {field: 'finPrevue', header: 'Fin du prêt'},
@@ -169,7 +166,7 @@ export class GestionPretComponent implements OnInit {
     const pretAEnvoyer = {
       id: this.pret.id,
       debut: new Date(this.pret.debut).toJSON(),
-      finReelle: new Date(this.pret.finReelle).toJSON(),
+      finReelle: this.pret.finReelle ? new Date(this.pret.finReelle).toJSON() : null,
       finPrevue: new Date(this.pret.finPrevue).toJSON(),
       // materiel: this.pret.materiels,
       materiels: this.listeMateriel.find(materiels => materiels.modele === modeleMateriel),

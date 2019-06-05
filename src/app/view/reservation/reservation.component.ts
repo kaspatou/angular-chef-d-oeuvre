@@ -8,7 +8,7 @@ import {CategorieService} from '../../service/categorie.service';
 import {PretService} from '../../service/pret.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import frLocale from '@fullcalendar/core/locales/fr';
-import { Calendar } from '@fullcalendar/core';
+import {Calendar, formatDate} from '@fullcalendar/core';
 import {Pret} from '../../model/pret.model';
 import {EventService} from '../../service/event.service';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -116,6 +116,16 @@ export class ReservationComponent implements OnInit {
         left:   'prev, next',
         center: 'title',
         right:  'today'
+      },
+      selectAllow: function (selectInfo) {
+        const date1 = selectInfo.start;
+        const date2 = new Date();
+        if (date1 > date2) {
+          return true;
+        }
+        else {
+          return false;
+        }
       },
       customButtons: {
         custom1: {
