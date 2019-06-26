@@ -25,13 +25,9 @@ export class MaterielService {
     return this.httpClient.get<Materiel[]>('http://localhost:8080/materiel/getall');
   }
 
-  public getListeMateriels(){
-    console.log(this.httpClient.get<any>('http://localhost:8080/materiel/getall')
-      );
-
+  public getListeMateriels() {
     return this.httpClient.get<any>('http://localhost:8080/materiel/getall')
       .toPromise()
-      // .then(res => <Materiel[]>res.data)
       .then(data => { return data; });
 
   }
@@ -40,14 +36,14 @@ export class MaterielService {
     return this.httpClient.put<Materiel>('http://localhost:8080/materiel/modify', materiel)
       .pipe(
       tap((_ => this.messageService.add('Le matériel a bien été mis à jour', true)))
-    );;
+    );
 
   }
 
   public createMateriel(materiel) {
     return this.httpClient.post<Materiel>('http://localhost:8080/materiel/add', materiel).pipe(
       tap((_ => this.messageService.add('Le matériel a bien été ajouté', true)))
-    );;
+    );
   }
 
   public deleteMateriel(materielId: number) {

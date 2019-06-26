@@ -1,5 +1,7 @@
 <h1>Liste des équipements</h1>
 <mat-card class="mat-elevation-z8">
+
+  <!--Tableau affichant la liste des équipements -->
   <p-table #dt [columns]="cols" [value]="materiels" [paginator]="true" [rows]="8">
     <ng-template pTemplate="caption">
 
@@ -38,7 +40,6 @@
         <td class="ui-p-5">{{materiel.os}}</td>
         <td class="ui-p-1">{{materiel.verOs}}</td>
         <td class="ui-p-1" align="center"><a button pButton type="button" class="ui-button-success" routerLink="/reservation/{{materiel.id}}" label="Réserver"></a></td>
-        <!-- style="width: 8em" -->
       </tr>
     </ng-template>
     <ng-template pTemplate="summary">

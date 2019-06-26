@@ -62,7 +62,6 @@ export class ReservationComponent implements OnInit {
     this.materielId = this.route.snapshot.params.id;
     const decodedToken = jwt_decode(sessionStorage.getItem(environment.accessToken));
     this.username = decodedToken.sub;
-    console.log('username', this.username);
 
     this.utilisateurService.getUtilisateurs().subscribe( listeUtilisateurs => {
         for (const utilisateurIteration of listeUtilisateurs) {
@@ -132,12 +131,12 @@ export class ReservationComponent implements OnInit {
           text: 'Enregistrer',
           click: (function() {
             this.save();
-            alert('clicked custom button 1!');
+            // alert('clicked custom button 1!');
           }).bind(this)
         }
       },
       footer: {
-        left: 'prev, next',
+        // left: 'prev, next',
         right: 'custom1',
         },
       // select: function(info) {

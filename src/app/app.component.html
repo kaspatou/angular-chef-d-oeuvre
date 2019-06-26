@@ -15,8 +15,9 @@
     <div fxShow="true" fxHide.lt-md="true">
       <a *ngIf="isReader" mat-button routerLink="/historique">Historique des prêts</a>
       <a *ngIf="isReader" mat-button routerLink="/listing">Demande de prêt</a>
-      <a *ngIf="isAdmin" mat-button routerLink="/gestionparc">Gestion du Parc</a>
-      <a *ngIf="isAdmin" mat-button routerLink="/gestionpret">Gestion des Prêts</a>
+      <a *ngIf="isAdmin" mat-button routerLink="/gestionparc">Gestion du parc</a>
+      <a *ngIf="isAdmin" mat-button routerLink="/gestionpret">Gestion des prêts</a>
+      <a *ngIf="isAdmin" mat-button routerLink="/donneesmateriel">Gestion données matériel</a>
       <!--<a *ngIf="isReader" mat-button routerLink="/recherche">Recherche</a>-->
     </div>
 
@@ -25,10 +26,11 @@
 
     <mat-sidenav color="primary" #sidenav fxLayout="column" mode="over"  opened="false" fxHide.gt-sm="true">
       <div fxLayout="column">
-        <a mat-button routerLink="/historique">Historique des prêts</a>
-        <a mat-button routerLink="/listing">Demande de prêt</a>
-        <a mat-button routerLink="/gestionparc">Gestion du parc</a>
-        <a mat-button routerLink="/gestionpret">Gestion des prêts</a>
+        <a *ngIf="isReader" mat-button routerLink="/historique">Historique des prêts</a>
+        <a *ngIf="isReader" mat-button routerLink="/listing">Demande de prêt</a>
+        <a *ngIf="isAdmin" mat-button routerLink="/gestionparc">Gestion du parc</a>
+        <a *ngIf="isAdmin" mat-button routerLink="/gestionpret">Gestion des prêts</a>
+        <a *ngIf="isAdmin" mat-button routerLink="/donneesmateriel">Gestion données matériel</a>
         <!--<a mat-button routerLink="/recherche">Recherche</a>-->
       </div>
     </mat-sidenav>

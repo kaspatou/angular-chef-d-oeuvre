@@ -33,6 +33,7 @@ export class PretService {
     this.httpClient.delete('http://localhost:8080/prets/delete/' + pretId).subscribe(deletedPret => {
       this.messageService.add('Le prêt a bien été supprimé', true);
       this.publishPrets();
+
     });
   }
 

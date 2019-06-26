@@ -57,8 +57,11 @@ export class GestionParcComponent implements OnInit {
     }); */
 
     this.donneesMaterielService.publishDonneesMateriel();
-    this.donneesMaterielService.listeDonneesMateriel$.subscribe(donnees => this.listeDonnees = donnees);
-    this.donneesMaterielService.listeDonneesMateriel$.subscribe(listeDonnees => this.choixCompte = listeDonnees);
+    this.donneesMaterielService.listeDonneesMateriel$.subscribe((donnees) => {
+      this.listeDonnees = donnees;
+      this.choixCompte = donnees;
+    });
+    // this.donneesMaterielService.listeDonneesMateriel$.subscribe(listeDonnees => this.choixCompte = listeDonnees);
     this.categorieService.publishCategories();
     this.categorieService.listeCategories$.subscribe(categorie => this.listeCategorie = categorie);
     // this.materielService.publishMateriels();

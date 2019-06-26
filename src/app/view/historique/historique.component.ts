@@ -119,7 +119,9 @@ export class HistoriqueComponent implements OnInit {
     this.username = decodedToken.sub;
     console.log('username', this.username);
     this.utilisateurService.getUtilisateurs().subscribe( listeUtilisateurs => {
-        for (const utilisateurIteration of listeUtilisateurs) {
+      console.log("debut for");
+      for (const utilisateurIteration of listeUtilisateurs) {
+        console.log('entrée dans for');
           if (this.username === utilisateurIteration.identifiant) {
             this.utilisateur = utilisateurIteration;
             this.utilisateurId = utilisateurIteration.id;
@@ -161,7 +163,7 @@ export class HistoriqueComponent implements OnInit {
     onSupprimer(id) {
     console.log(id);
       this.pretService.deletePret(id);
-      alert('test');
+      alert('id du prêt supprimé : '+ id);
       this.onRefresh();
       }
 

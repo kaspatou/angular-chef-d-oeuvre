@@ -10,6 +10,8 @@ import {ReaderGuard} from './guards/reader.guard';
 import {CreatorGuard} from './guards/creator.guard';
 import {GestionPretComponent} from './view/gestion-pret/gestion-pret.component';
 import {GestionParcComponent} from './view/gestion-parc/gestion-parc.component';
+import {DonneesMateriel} from './model/donneesMateriel.model';
+import {DonneesMaterielComponent} from './view/donnees-materiel/donnees-materiel.component';
 
 
 
@@ -21,7 +23,8 @@ const routes: Routes = [
   { path: 'recherche', component: RechercheMaterielComponent, canActivate: [ReaderGuard]},
   { path: 'reservation/:id', component: ReservationComponent, canActivate: [ReaderGuard]},
   { path: 'gestionpret', component: GestionPretComponent, canActivate: [AdminGuard]},
-  { path: 'gestionparc', component: GestionParcComponent, canActivate: [AdminGuard]}
+  { path: 'gestionparc', component: GestionParcComponent, canActivate: [AdminGuard]},
+  { path: 'donneesmateriel', component: DonneesMaterielComponent, canActivate: [AdminGuard]}
 ];
 
 @NgModule({

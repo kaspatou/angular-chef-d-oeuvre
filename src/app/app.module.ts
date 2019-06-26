@@ -41,6 +41,9 @@ import {InputMaskModule} from 'primeng/inputmask';
 import {ListboxModule} from 'primeng/listbox';
 import {DropdownModule} from 'primeng/dropdown';
 import { MessageComponent } from './message/message.component';
+import {DonneesMaterielComponent} from './view/donnees-materiel/donnees-materiel.component';
+
+
 
 
 
@@ -61,7 +64,8 @@ import { MessageComponent } from './message/message.component';
     ReservationComponent,
     GestionParcComponent,
     GestionPretComponent,
-    MessageComponent
+    MessageComponent,
+    DonneesMaterielComponent
 
   ],
   imports: [
